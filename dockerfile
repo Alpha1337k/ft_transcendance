@@ -12,7 +12,7 @@ RUN n stable
 # update npm
 RUN npm i npm@latest -g
 
-COPY serv/ /serv
+COPY src/ /serv
 
 RUN cd serv && npm install
 
