@@ -39,7 +39,6 @@ var removeChat = function(param)
 
 var LoadMainContent = function (page, dom, pagename, pushUrl) {	
 	return new Promise(function(resolved, myReject) {
-		// "Producing Code" (May take some time)
 		console.log("loading data into", dom);
 		if(typeof dom === '')
 			dom = "#main-box";
@@ -56,13 +55,7 @@ async function loginUser() {
 	*/
 	LoadMainContent("struct.html", "body").then(function () {
 	LoadMainContent("homepage.html", "#main-box", "Play Pong").then(function () {
-	LoadMainContent("friends.html", "#friends-tab");
+	LoadMainContent("friends", "#friends-tab");
 	});
 	});
-
-
-	//await LoadMainContent("struct.html", "Play Pong", "body", true);
-	//await LoadMainContent("homepage.html", "", "#main-box", true);
-	//await LoadMainContent("friends.html", "", "#friends-tab", true); 
-
 }
