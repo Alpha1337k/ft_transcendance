@@ -2,11 +2,43 @@ import { Injectable } from '@nestjs/common';
 import * as avatarCreator from './modules/generateAvatar/generateAvatar';
 import { join } from 'path';
 
+class concluded_match {
+	p1 : friend;
+	p2 : friend;
+	p1Score: number;
+	p2Score: number;
+	constructor(p1: friend, p2:friend, p1Score:number, p2Score: number) {
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p1Score = p1Score;
+		this.p2Score = p2Score;
+	}
+}
+
 class friend {
 	name : string;
 	lastSeen : Date;
 	img : string;
-	id : number; 
+	id : number;
+	wins : number;
+	losses : number;
+	goals : number;
+	ranking : string;
+	history : concluded_match [];
+
+	createHistory() : concluded_match[]
+	{
+		let matches = [];
+		let len = Math.round(Math.random() * 20);
+		if (len >= 10)
+			len = 0;
+		for (let i = 0; i < len; i++) {
+			let match = new concluded_match(this, this, Math.round(Math.random() * 10), Math.round(Math.random() * 10));
+			matches.push(match);
+		}
+		return matches;
+	}
+
 	constructor(name : string, lastSeen : Date, id : number) {
 		this.name = name;
 		this.lastSeen = lastSeen;
@@ -15,6 +47,11 @@ class friend {
 		// temporary image placement
 		avatarCreator.generateAvatar(join(__dirname, '..', 'site_static/img/' + id + '.jpg'));
 		this.id = id;
+		this.history = this.createHistory();
+		this.wins = Math.round(Math.random() * 500);
+		this.losses = Math.round(Math.random() * 500);
+		this.goals = Math.round(Math.random() * 1000);
+		this.ranking = 'S+';
 	}
 }
 
@@ -101,6 +138,21 @@ export class AppService {
 		return friendlist[i];
 	}
 
+	createHistoryDoms(matches : concluded_match[]): string
+	{
+		let rval : string = '';
+		if (matches.length == 0)
+			return ("<h3>Nothing to display</h3>")
+		for (let index = 0; index < matches.length; index++) {
+			const m = matches[index];
+			rval += `
+			<div class="past-match">
+				<a>${m.p1.name}</a> <p> / </p><a>${m.p2.name}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
+			</div>`
+		}
+		return rval;
+	}
+
 	getProfile(userId) {
 		if (friendlist.length == 0)
 			this.addFriends();
@@ -127,36 +179,22 @@ export class AppService {
 				<div class="user-history">
 					<h3>Last games</h3>
 					<div class="match-history-table">
-						<div class="past-match">
-							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
-						</div>
-						<div class="past-match">
-							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
-						</div>
-						<div class="past-match">
-							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
-						</div>
-						<div class="past-match">
-							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
-						</div>
-						<div class="past-match">
-							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
-						</div>
+						${this.createHistoryDoms(f.history)}
 					</div>
 				</div>
 				<div class="user-perfomance">
 					<h3>Stats</h3>
 					<div>
 						<h5>Wins</h5>
-						<p>1503</p>
+						<p>${f.wins}</p>
 					</div>
 					<div>
 						<h5>Losses</h5>
-						<p>0</p>
+						<p>${f.losses}</p>
 					</div>
 					<div>
 						<h5>Goals</h5>
-						<p>7000</p>
+						<p>${f.goals}</p>
 					</div>
 					<div>
 						<h5>Abandons</h5>
@@ -164,7 +202,7 @@ export class AppService {
 					</div>
 					<div>
 						<h5>Ranking</h5>
-						<p>S+</p>
+						<p>${f.ranking}</p>
 					</div>
 				</div>
 		</div>		
