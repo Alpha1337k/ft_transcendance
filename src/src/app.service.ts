@@ -1,14 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import * as avatarCreator from './modules/generateAvatar/generateAvatar';
+import { join } from 'path';
 
 class friend {
 	name : string;
 	lastSeen : Date;
 	img : string;
 	id : number; 
-	constructor(name : string, lastSeen : Date, img : string, id : number) {
+	constructor(name : string, lastSeen : Date, id : number) {
 		this.name = name;
 		this.lastSeen = lastSeen;
-		this.img = img;
+		this.img = 'img/' + id + '.jpg';
+
+		// temporary image placement
+		avatarCreator.generateAvatar(join(__dirname, '..', 'site_static/img/' + id + '.jpg'));
 		this.id = id;
 	}
 }
@@ -21,10 +26,10 @@ export class AppService {
 		return 'Hello World!';
 	}
 	addFriends() {
-		friendlist.push(new friend("sjon", new Date('2021-08-17T14:53:20'), "img/enemy.jpg", 104042));
-		friendlist.push(new friend("okkel", new Date('2020-12-17T03:24:00'), "img/me.jpg", 104043));
-		friendlist.push(new friend("wokkel", new Date(0), "img/me.jpg", 104045));
-		friendlist.push(new friend("chef", new Date(), "img/enemy.jpg", 104046));
+		friendlist.push(new friend("sjon", new Date('2021-08-17T14:53:20'), 104042));
+		friendlist.push(new friend("okkel", new Date('2020-12-17T03:24:00'),104043));
+		friendlist.push(new friend("wokkel", new Date(0), 104045));
+		friendlist.push(new friend("chef", new Date(), 104046));
 	}
 
 	getFriends() {
@@ -34,32 +39,7 @@ export class AppService {
 		for (let index = 0; index < friendlist.length; index++) {
 			const f : friend = friendlist[index];
 
-			// create an last seen display of layout 'number scale ago' OR online
-			let lastSeenText : string;
-			if (f.lastSeen.getTime() == new Date(0).getTime())
-				lastSeenText = "Online";
-			else
-			{
-				let size : string;
-				// get difference in time in minutes
-				let diff : number = (new Date().getTime() - f.lastSeen.getTime()) / 1000 / 60;
-
-				console.log("difference of number", diff);
-				// scale accordingly
-				if (diff >= 60 && diff < 1440)
-				{
-					diff /= 60;
-					size = ' hours';
-				}
-				else if (diff >= 1440)
-				{
-					diff /= 1440;
-					size = ' days';					
-				}
-				else
-					size = ' minutes';
-				lastSeenText = Math.round(diff) + size + " ago";
-			}
+			const lastSeenText : string = this.createLastSeen(f);
 
 			rval += `<div class="friendbox">
 						<div class="playerdetails">
@@ -70,12 +50,126 @@ export class AppService {
 							</div>
 						</div>
 						<div class="friend-linkbox">
-							<button onclick="LoadMainContent('profile.html?${f.id}', '#main-box', 'profile')" class="smallbtn">웃</button>
-							<button onclick="LoadMainContent('chat.html?${f.id}', '#openchat-overlay' ,'chat')" class="smallbtn">✉</button>
+							<button onclick="LoadMainContent('profile?id=${f.id}', '#main-box', 'profile')" class="smallbtn">웃</button>
+							<button onclick="LoadMainContent('chat.html?id=${f.id}', '#openchat-overlay' ,'chat')" class="smallbtn">✉</button>
 						</div>
 					</div>
 			`;
 		}
+		return rval;
+	}
+
+	// create an last seen display of layout 'number scale ago' OR online
+	createLastSeen(user : friend): string {
+		let lastSeenText : string;
+
+		if (user.lastSeen.getTime() == new Date(0).getTime())
+			lastSeenText = "Online";
+		else
+		{
+			let size : string;
+			// get difference in time in minutes
+			let diff : number = (new Date().getTime() - user.lastSeen.getTime()) / 1000 / 60;
+
+			// scale accordingly
+			if (diff >= 60 && diff < 1440)
+			{
+				diff /= 60;
+				size = ' hours';
+			}
+			else if (diff >= 1440)
+			{
+				diff /= 1440;
+				size = ' days';					
+			}
+			else
+				size = ' minutes';
+			lastSeenText = Math.round(diff) + size + " ago";
+		}
+		return lastSeenText;
+	}
+
+	findUser(userId : number) : friend
+	{
+		let i : number = 0;
+		for (; i <= friendlist.length; i++) {
+			if (i == friendlist.length)
+				return (undefined);
+			if (friendlist[i].id == userId)
+				break;
+		}
+		return friendlist[i];
+	}
+
+	getProfile(userId) {
+		if (friendlist.length == 0)
+			this.addFriends();
+
+		const f = this.findUser(userId);
+			if (f == undefined)
+		return("not found");
+		console.log("userId:", userId, f.id);
+		let rval : string = `
+			<div class="userprofile">
+				<div class="generaldata">
+					<img src="${f.img}">
+					<div>
+						<h1>${f.name}</h1>
+						<p>${this.createLastSeen(f)}</p>
+					</div>
+					<div>
+						<button>Add</button>
+						<br>
+						<br>
+						<button>Invite</button>
+					</div>
+				</div>
+				<div class="user-history">
+					<h3>Last games</h3>
+					<div class="match-history-table">
+						<div class="past-match">
+							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
+						</div>
+						<div class="past-match">
+							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
+						</div>
+						<div class="past-match">
+							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
+						</div>
+						<div class="past-match">
+							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
+						</div>
+						<div class="past-match">
+							<a>Jeff</a> <p> / </p><a>Jeff</a><h5>7 - 1</h5>
+						</div>
+					</div>
+				</div>
+				<div class="user-perfomance">
+					<h3>Stats</h3>
+					<div>
+						<h5>Wins</h5>
+						<p>1503</p>
+					</div>
+					<div>
+						<h5>Losses</h5>
+						<p>0</p>
+					</div>
+					<div>
+						<h5>Goals</h5>
+						<p>7000</p>
+					</div>
+					<div>
+						<h5>Abandons</h5>
+						<p>0</p>
+					</div>
+					<div>
+						<h5>Ranking</h5>
+						<p>S+</p>
+					</div>
+				</div>
+		</div>		
+		`;
+
 		return rval;
 	}
 }

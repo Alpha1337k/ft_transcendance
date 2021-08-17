@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -13,5 +13,12 @@ export class AppController {
   @Get("friends")
   test(): string {
 	  return this.appService.getFriends();
+  }
+  @Get("profile")
+  profile(@Query() query): string {
+	/*
+		currently using query (?) as parameter, might need to change later
+	*/
+	return (this.appService.getProfile(query.id));
   }
 }
