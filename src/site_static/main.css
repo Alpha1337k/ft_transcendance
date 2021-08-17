@@ -40,11 +40,6 @@ a:hover {
     cursor:pointer;  
 }
 
-object {
-	width: 100%;
-	height: 100%;
-}
-
 ::-webkit-scrollbar {
 	width: 1vh;
   }
@@ -197,8 +192,8 @@ body {
 .friendbox img {
 	border-radius: 100%;
     padding: 1vh;
-	width: 2.5vh;
-	max-height: 2.5vh;
+	width: 3.5vh;
+	max-height: 3.5vh;
 	padding: 1.3vh;
 }
 
@@ -370,4 +365,40 @@ body {
 
 .dialogbox button {
 	border-radius: 1vh;
+}
+
+.generaldata {
+	display: flex;
+    justify-content: space-evenly;
+    height: 10vh;
+}
+
+.generaldata img {
+	height: 100%;
+	border-radius: 100%;
+}
+
+.user-history {	
+    margin-top: 2vh;
+	padding: 1vh;
+}
+
+.past-match {
+	display: flex;
+    justify-content: space-evenly;
+}
+
+.past-match:nth-child(even)  {
+	background-color:#eaeaea;
+}
+
+.past-match:nth-child(odd) {
+	background-color:white;
+
+}
+
+.match-history-table {
+	border-radius: 1vh;
+	height: 15vh;
+	overflow: scroll;
 }
