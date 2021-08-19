@@ -1,9 +1,12 @@
 FROM debian:latest
 
-RUN apt-get update && apt-get install -y nodejs npm wget
+RUN apt-get update && apt-get install -y nodejs npm
 
-# download postgres
+# download postgres and setup
 RUN apt-get install -y postgresql postgresql-contrib
+
+RUN service postgresql start && \ 
+	su postgres --command="printf \"\\set AUTOCOMMIT on\nALTER USER postgres PASSWORD 'codam'; CREATE DATABASE test\n\" | psql"
 
 # update node
 RUN npm install -g n

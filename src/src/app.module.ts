@@ -2,13 +2,21 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-    //imports: [
-	//	ServeStaticModule.forRoot({
-	//	  rootPath: __dirname +  '../../site_static/'
-	//	})],
-	imports: [],
+	imports: [
+		TypeOrmModule.forRoot({
+			type: 'postgres',
+			host: 'localhost',
+			port: 5432,
+			username: 'postgres',
+			password: 'codam',
+			database: 'test',
+			entities: [],
+			synchronize: true,
+		})
+	],
 	controllers: [AppController],
 	providers: [AppService],
 })
