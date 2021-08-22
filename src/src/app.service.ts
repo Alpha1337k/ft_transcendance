@@ -45,7 +45,7 @@ class friend {
 		this.img = 'img/' + id + '.jpg';
 
 		// temporary image placement
-		avatarCreator.generateAvatar(join(__dirname, '..', 'site_static/img/' + id + '.jpg'));
+		avatarCreator.generateAvatarToFile(join(__dirname, '..', 'site_static/img/' + id + '.jpg'));
 		this.id = id;
 		this.history = this.createHistory();
 		this.wins = Math.round(Math.random() * 500);
