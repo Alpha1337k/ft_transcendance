@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 
 @Module({
 	imports: [
@@ -14,8 +14,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 			password: 'codam',
 			database: 'test',
 			entities: [],
+			autoLoadEntities: true,
 			synchronize: true,
-		})
+		}),
+		UserModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
