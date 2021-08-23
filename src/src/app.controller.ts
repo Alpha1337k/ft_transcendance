@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -6,19 +6,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  returnMain(): string {
+    return this.appService.getMain();
   }
 
-  @Get("friends")
-  test(): string {
-	  return this.appService.getFriends();
+  @Get("struct")
+  async returnStructure() {
+	  return await this.appService.getStructure();
   }
-  @Get("profile")
-  profile(@Query() query): string {
-	/*
-		currently using query (?) as parameter, might need to change later
-	*/
-	return (this.appService.getProfile(query.id));
-  }
+
 }
