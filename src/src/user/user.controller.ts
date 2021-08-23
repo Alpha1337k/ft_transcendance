@@ -9,6 +9,6 @@ export class UserController {
 	@Get()
 	async all() {
 		this.userService.addUserRandom();
-		return "this is it::" + await this.userService.getAllUsers();
+		return "this is it::" + JSON.stringify((await this.userService.getAllUsers()));
 	}
 }

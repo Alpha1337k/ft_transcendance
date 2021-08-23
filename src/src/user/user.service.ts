@@ -11,16 +11,20 @@ export class UserService {
 		private UserRepository: Repository<UserEntity>,
 	) {}
 
-	async getAllUsers(): Promise<string> {
-		return "haha" + JSON.stringify(await this.UserRepository.find());
+	async getAllUsers(): Promise<UserEntity[]> {
+		return await this.UserRepository.find();
 	}
 
 	async addUserRandom(): Promise<void> {
 		let user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = "jeff";
-		user.image = (generateAvatar()).toString();
+		user.image = (await generateAvatar()).toString('base64');
 
 		this.UserRepository.manager.save(user).then(()=> {console.log("---- saved a img!")});
+	}
+
+	async getUserById(id : number): Promise<UserEntity> {
+		return this.UserRepository.findOne(id);
 	}
 }

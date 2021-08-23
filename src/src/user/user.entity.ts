@@ -9,6 +9,19 @@ export enum UserRank {
 	D = 'D'
 }
 
+export class concludedMatch {
+	p1 : UserEntity;
+	p2 : UserEntity;
+	p1Score: number;
+	p2Score: number;
+	constructor(p1: UserEntity, p2:UserEntity, p1Score:number, p2Score: number) {
+		this.p1 = p1;
+		this.p2 = p2;
+		this.p1Score = p1Score;
+		this.p2Score = p2Score;
+	}
+}
+
 @Entity()
 export class UserEntity {
 
@@ -19,7 +32,7 @@ export class UserEntity {
 	name: string;
 
 	@Column()
-	image: string;
+	image: String;
 
 	@Column({default: 0})
 	wins: number;
@@ -30,8 +43,11 @@ export class UserEntity {
 	@Column()
 	lastSeen: Date;
 
-	//@Column([{default: 800}])
-	//elo: number;
+	@Column('simple-array', {nullable: true})
+	history: concludedMatch[];
+
+	@Column({default: 800})
+	userElo: number;
 
 	@Column({type: "enum", enum: UserRank, default: UserRank.C})
 	UserRank: UserRank;
