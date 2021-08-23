@@ -53,7 +53,7 @@ async function loginUser() {
 	/*
 		login
 	*/
-	LoadMainContent("struct.html", "body").then(function () {
+	LoadMainContent("struct", "body").then(function () {
 	LoadMainContent("homepage.html", "#main-box", "Play Pong").then(function () {
 	LoadMainContent("friends", "#friends-tab");
 	});
