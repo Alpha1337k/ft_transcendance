@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { FriendsModule } from './front/friends/friends.module';
 import { ProfileModule } from './front/profile/profile.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
 	imports: [
@@ -21,7 +22,8 @@ import { ProfileModule } from './front/profile/profile.module';
 		}),
 		UserModule,
 		FriendsModule,
-		ProfileModule
+		ProfileModule,
+		ChatModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
