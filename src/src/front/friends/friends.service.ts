@@ -8,7 +8,7 @@ export class FriendsService {
 	constructor (private readonly userService : UserService) {}
 
 	async createFriendsList() {
-		let rval : string = '';
+		let rval : string = ``;
 		let friends : UserEntity[] = await this.userService.getAllUsers();
 
 		for (let index = 0; index < friends.length; index++) {
@@ -26,7 +26,7 @@ export class FriendsService {
 						</div>
 						<div class="friend-linkbox">
 							<button onclick="LoadMainContent('profile/${f.userid}', '#main-box', 'profile')" class="smallbtn">웃</button>
-							<button onclick="LoadMainContent('chat.html$/${f.userid}', '#openchat-overlay' ,'chat')" class="smallbtn">✉</button>
+							<button onclick="LoadMainContent('chat/${f.userid}', '#openchat-overlay' ,'chat')" class="smallbtn">✉</button>
 						</div>
 					</div>
 			`;
