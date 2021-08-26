@@ -3,8 +3,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 export class ChatMessage {
 	sendDate	: Date;
 	message 	: string;
-	userId		: string;
-	constructor(msg : string, id : string) {
+	userId		: number;
+	constructor(msg : string, id : number) {
 		this.sendDate = new Date();
 		this.message = msg;
 		this.userId = id;
@@ -17,6 +17,9 @@ export class ChatEntity {
 	@PrimaryGeneratedColumn()
 	chatid: string;
 
-	@Column()
-	messages: ChatMessage[]
+	@Column('simple-array', {nullable: true})
+	usernames: string[];
+
+	@Column('simple-array', {nullable: true})
+	messages: ChatMessage[];
 }

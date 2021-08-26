@@ -1,10 +1,19 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
+import { ChatService } from "./chat.service";
 
 @Controller("chat")
 export class ChatController {
+	constructor (private readonly chatService : ChatService) {}
 	
+	@Get(":id")
+	async returnChat(@Param() params): Promise<string>
+	{
+		return await this.chatService.getChat(params.id);
+	}
+
 	@Get()
-	all() {
-		return "all";
+	async returnAllChats() : Promise<string>
+	{
+		return "wooooow" + await this.chatService.getAllChats();
 	}
 }
