@@ -17,27 +17,36 @@ export class ChatService {
 
 	async getChat(id : string): Promise<string>
 	{
-		console.log("id:", id);
+		console.log("chat id:", id);
 		let chat : ChatEntity = await this.ChatRepository.findOne({chatid : id});
 		if (chat == undefined || chat == null)
 		{
 			console.log("no chat found! creating new one");
 			let newchat = new ChatEntity();
 			newchat.chatid = id;
+			newchat.usernames = ["John", "Jeff"];
+			newchat.messages = JSON.stringify([new ChatMessage("this is the start of your conversation!", 1)]);
 			this.ChatRepository.save(newchat).then(() => {console.log("----- saved a chat!")});
 			chat = newchat;
+		}
+		let messages : string = '';
+		let parsedMessages : ChatMessage[] = JSON.parse(chat.messages);
+		for (let i = 0; i < parsedMessages.length; i++) {
+			messages += `<li><b>${parsedMessages[i].userId}</b>${parsedMessages[i].message}</li>`;
 		}
 		return `
 				<div class="chat-window">
 				<div class="chat-head">
-					<h4>${chat.chatid}</h4>
+					<h4>${chat.usernames[0]}</h4>
 					<div>
 					<a onclick="minimizeChat(this)">_</a>
 					<a onclick="removeChat(this)">X</a>
 					</div>
 				</div>
 				<div class="messagebox">
-					this is the beginning of your chat!
+					<ul>
+						${messages}
+					</ul>
 				</div>
 				<hr>
 				<div class="dialogbox">
@@ -57,11 +66,11 @@ export class ChatService {
 	{
 		let chat : ChatEntity = await this.ChatRepository.findOne({chatid : msg.chatid});
 		let newmsg : ChatMessage = new ChatMessage(msg.message, msg.userid);
-		if (chat.messages != null)
-		{
-		chat.messages.push(newmsg);
+
+		let tmp : ChatMessage[] = JSON.parse(chat.messages);
+		tmp.push(newmsg);
+		chat.messages = JSON.stringify(tmp);
 		this.ChatRepository.save(chat);
-		}
 		return newmsg;
 	}
 }

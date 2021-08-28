@@ -20,6 +20,6 @@ export class ChatEntity {
 	@Column('simple-array', {nullable: true})
 	usernames: string[];
 
-	@Column('simple-array', {nullable: true})
-	messages: ChatMessage[];
+	@Column()
+	messages: string;
 }
