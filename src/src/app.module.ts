@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { FriendsModule } from './front/friends/friends.module';
 import { ProfileModule } from './front/profile/profile.module';
 import { ChatModule } from './chat/chat.module';
+import { PongModule } from './front/pong/pong.module';
 
 @Module({
 	imports: [
@@ -23,7 +24,8 @@ import { ChatModule } from './chat/chat.module';
 		UserModule,
 		FriendsModule,
 		ProfileModule,
-		ChatModule
+		ChatModule,
+		PongModule
 	],
 	controllers: [AppController],
 	providers: [AppService],
