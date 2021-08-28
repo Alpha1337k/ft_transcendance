@@ -22,7 +22,9 @@ export class AppService {
 				<script type="text/javascript" src="https://cdn.socket.io/3.1.3/socket.io.min.js"></script>
 				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 				<script src="main.js"></script>
+				<script src="socket.js"></script>
 				<script src="chat.js"></script>
+				<script src="pong.js"></script>
 			</head>
 			<body>
 				<div class="loginscreen">
