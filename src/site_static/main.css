@@ -401,3 +401,64 @@ body {
 	height: 15vh;
 	overflow: scroll;
 }
+
+.gamedisplay {
+	margin: 0 auto;
+}
+
+.playerdisplay {
+	height: 7vh;
+    background-color: darkgray;
+    width: 32vh;
+	margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1vh;
+}
+
+.playerdisplay img {
+    height: 5vh;
+    margin: 1vh;
+}
+
+.playerinfo {
+	transition: 0.5s ease;
+	display: flex;
+}
+
+.playerinfo:hover {
+	background-color: lightgray;
+}
+
+.playerinfo h4 {
+    margin: 1vh 0 0 1vh;
+}
+
+.playerinfo p {
+    margin-left: 1vh;
+    color: lightblue;
+}
+
+.scorecounter {
+    background-color: white;
+    border-radius: 1vh;
+    height: 5vh;
+    margin: 1vh 3vh 0 0;
+}
+
+.scorecounter h2 {
+	margin: 0.7vh;
+}
+
+.linkcanvas {
+	margin-top: 0;
+    margin-bottom: 0;
+}
+
+.playertop {
+	border-radius: 1vh 1vh 0 0;
+}
+
+.playerbottom {
+	border-radius: 0 0 1vh 1vh;
+}

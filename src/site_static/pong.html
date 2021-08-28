@@ -1,0 +1,34 @@
+<div class="box-announcement">
+	<h1>Online!</h1>
+</div>
+<div class="gamedisplay">
+	<div class="playerdisplay playertop">
+		<div class="playerinfo" onclick="LoadMainContent('profile/1', '#main-box', 'profile')">
+			<img src="img/enemy.jpg" alt="?">
+			<div>
+				<h4 id="p2_name">Igor Dimichev</h4>
+				<p>(1500)</p>
+			</div>
+		</div>
+		<div class="scorecounter">
+			<h2 id="p1_score">0</h2>
+		</div>
+	</div>
+	<canvas id="pong-canvas" class="pong-canvas linkcanvas" width = "400" height = "600" style="background-color: grey;" >
+	</canvas>
+	<div class="playerdisplay playerbottom">
+		<div class="playerinfo" onclick="LoadMainContent('profile/1', '#main-box', 'profile')">
+			<img src="img/me.jpg" alt="?">
+			<div>
+				<h4 id="p2_name">Nikolai Inviniche</h4>
+				<p>(1500)</p>
+			</div>
+		</div>
+		<div class="scorecounter">
+			<h2 id="p2_score">0</h2>
+		</div>
+	</div>
+</div>
+
+<button onclick="window.history.back();">Back</button>
+<script src="pong.js"></script>

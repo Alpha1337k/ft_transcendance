@@ -1,3 +1,19 @@
+class vec_2 {
+	constructor (x, y)
+	{
+		this.x = x;
+		this.y = y;
+	}
+}
+
+class line {
+	constructor (p1, p2)
+	{
+		this.p1 = p1;
+		this.p2 = p2;
+	}
+}
+
 function ChangeURL(title, urlPath, id){
 	console.log("push page", title);
 	window.history.pushState({ob : urlPath, id : id}, title, urlPath);
