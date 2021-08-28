@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Socket, Server } from 'socket.io';
+import { UserService } from "src/user/user.service";
 
 class vec_2 {
 	x : number;
@@ -93,6 +94,7 @@ class Game {
 			{
 				console.log("ending interval!");
 				clearInterval(gameRef.inter);
+				gameRef.#serverRef.to(gameRef.roomId).emit('gameFinished', "");
 				return;
 			}
 			gameRef.update_game();
@@ -171,6 +173,7 @@ class Game {
 				console.log("good job! p2");
 				this.ballExists = false;
 				this.p2_score++;
+				this.#serverRef.to(this.roomId).emit("getScoreUpdate", {id: 1, value: this.p2_score});
 				if (this.p2_score >= this.maxScore)
 				{
 					console.log("Wow! p2 won!!!!!");
@@ -182,6 +185,7 @@ class Game {
 				console.log("good job! p1");
 				this.ballExists = false;
 				this.p1_score++;
+				this.#serverRef.to(this.roomId).emit("getScoreUpdate", {id: 0, value: this.p1_score});
 				if (this.p1_score >= this.maxScore)
 				{
 					console.log("Wow! p1 won!!!!!");
@@ -194,8 +198,7 @@ class Game {
 
 @Injectable()
 export class PongService {
-	constructor() {
-	}
+	constructor(private readonly userService : UserService) {}
 
 	running_games = new Map<string, Game>();
 	gameid : string = 'a';
@@ -232,5 +235,69 @@ export class PongService {
 			// a -> b -> c etc k
 			this.gameid = String.fromCharCode(this.gameid.charCodeAt(0) + 1);
 		}
+	}
+	getQueueScreen() : string {
+		return `<div class="box-announcement">
+					<h1>Searching</h1>
+				</div>
+				<h2 id="queingamount">There are currently 0 people looking for a match </h2> 
+				<br><br>
+				<button onclick="window.history.back();">Back</button>
+				<script>
+					g_socket.emit("findGame");
+				</script>
+				`
+	}
+
+	async getGameScreen(id : string): Promise<string> {
+		const game = this.running_games[id];
+
+		if (game == null || game == undefined)
+			return "no game found matching id!";
+
+
+		// find users based on game
+		let p1 = await this.userService.getUserById(1);
+		let p2 = await this.userService.getUserById(1);
+
+		return `
+		<div class="box-announcement">
+			<h1>Online!</h1>
+		</div>
+		<div class="gamedisplay">
+			<div class="playerdisplay playertop">
+				<div class="playerinfo" onclick="LoadMainContent('profile/${p1.userid}', '#main-box', 'profile')">
+					<img src="data:image/png;base64, ${p1.image}" alt="?">
+					<div>
+						<h4 id="p2_name">Igor Dimichev</h4>
+						<p>(${p1.userElo})</p>
+					</div>
+				</div>
+				<div class="scorecounter">
+					<h2 id="p1_score">0</h2>
+				</div>
+			</div>
+			<canvas id="pong-canvas" class="pong-canvas linkcanvas" width = "400" height = "600" style="background-color: grey;" >
+			</canvas>
+			<div class="playerdisplay playerbottom">
+				<div class="playerinfo" onclick="LoadMainContent('profile/${p2.userid}', '#main-box', 'profile')">
+					<img src="data:image/png;base64, ${p2.image}" alt="?">
+					<div>
+						<h4 id="p2_name">${p2.name}</h4>
+						<p>(${p2.userElo})</p>
+					</div>
+				</div>
+				<div class="scorecounter">
+					<h2 id="p2_score">0</h2>
+				</div>
+			</div>
+		</div>
+		<br><br>
+		<button onclick="window.history.back();">Back</button>
+		<script src="pong.js"></script>
+		<script>
+			createHTMLHooksPong();
+		</script>
+		`
 	}
 }
