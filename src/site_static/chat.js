@@ -1,4 +1,3 @@
-let g_socket;
 
 function messagesend() {
 	console.log("sending message!");
@@ -15,7 +14,7 @@ async function connect() {
 
 	g_socket.on("msgToClients", data => {
 		console.log("message recieved!!", data);
-		document.getElementsByClassName("messagebox")[0].innerHTML += data.message;
+		document.getElementsByClassName("messagebox")[0].innerHTML += data;
 	});
 }
 

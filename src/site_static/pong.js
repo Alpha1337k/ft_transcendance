@@ -1,15 +1,3 @@
-
-class positionUpdate {
-	id		;
-	newpos	;
-
-	constructor (id, newpos)
-	{
-		this.id = id;
-		this.newpos = newpos;
-	}
-}
-
 var c;
 var ctx;
 var width;
@@ -23,7 +11,6 @@ let	g_walls;
 let	g_ball_pos;
 let g_player_pos	;
 let g_enemy_pos;
-let g_pong_socket;
 let	g_player_width = 40;
 let	lasttime = undefined;
 let	deltatime;
@@ -115,77 +102,70 @@ async function sendUpdate() {
 		g_player_pos.x -= movespeed * deltatime;
 	if (g_keys[1])
 		g_player_pos.x += movespeed * deltatime;
-	g_pong_socket.emit("sendClientUpdate", {id : g_gameId, updt :new positionUpdate(g_userId, g_player_pos)});
+	g_socket.emit("sendClientUpdate", {id : g_gameId, updt :new positionUpdate(g_userId, g_player_pos)});
 }
 
 async function getGameData() {
 	console.log("awaiting gamedata");
-	g_pong_socket.emit("getGameData", g_gameId);
+	g_socket.emit("getGameData", g_gameId);
 }
 
-async function connect() {
-	g_pong_socket = io("http://localhost:5000/");
+async function createHTMLHooksPong() {
+	c = document.getElementById("pong-canvas");
+	ctx = c.getContext("2d");
+	width = c.getAttribute("width");
+	height = c.getAttribute("height");
+	window.addEventListener('keydown',this.get_keydown,false);
+	window.addEventListener('keyup',this.get_keyup,false);
+	heightMul = height / 150;
+	widthMul = width / 100;
+}
 
-	g_pong_socket.on("connect", () => {
-		console.log("connected!!");
-	
-		c = document.getElementById("pong-canvas");
-		ctx = c.getContext("2d");
-		width = c.getAttribute("width");
-		height = c.getAttribute("height");
-		window.addEventListener('keydown',this.get_keydown,false);
-		window.addEventListener('keyup',this.get_keyup,false);
-		heightMul = height / 150;
-		widthMul = width / 100;
+g_socket.on("gameFound", data => {
+	console.log("game is found!");
+	g_gameId = data.gameId;
+	g_userId = data.userId;
+	LoadMainContent("pong/" + g_gameId, "#main-box", "Playing pong!");
+	getGameData();
+});
 
-		g_pong_socket.emit("findGame");
-	});
+g_socket.on("gameFinished", data => {
+	console.log("game done!!");
+});
 
-	g_pong_socket.on("gameFound", data => {
-		console.log("game is found!");
-		g_gameId = data.gameId;
-		g_userId = data.userId;
-		getGameData();
-	});
+g_socket.on("getGameData", data => {
+	console.log("data", data);
+	g_player_pos = data.p1_pos;
+	g_enemy_pos = data.p2_pos;
+	g_walls = data.walls;
+	g_ball_pos = data.ballPos;
+});
 
-	g_pong_socket.on("getGameData", data => {
-		console.log("data", data);
+g_socket.on("getScoreUpdate", data => {
+	if (data.id == 0)
+		document.getElementById("p1_score").innerHTML = data.value;
+	else
+		document.getElementById("p2_score").innerHTML = data.value;
+});
+
+g_socket.on("getGameUpdate", data => {
+	console.log("gameupdate!!", data);
+	if (lasttime == undefined)
+		lasttime = Date.now();
+	deltatime = (Date.now() - lasttime) / 1000;
+	lasttime = Date.now();
+	g_ball_pos = data.ballPos;
+	if (g_userId == 1)
+	{
 		g_player_pos = data.p1_pos;
 		g_enemy_pos = data.p2_pos;
-		g_walls = data.walls;
-		g_ball_pos = data.ballPos;
-	});
+	}
+	else
+	{
+		g_player_pos = data.p2_pos;
+		g_enemy_pos = data.p1_pos;
+	}
+	render();
+	sendUpdate();
+});
 
-	g_pong_socket.on("getGameUpdate", data => {
-		console.log("gameupdate!!", data);
-		if (lasttime == undefined)
-			lasttime = Date.now();
-		deltatime = (Date.now() - lasttime) / 1000;
-		lasttime = Date.now();
-		g_ball_pos = data.ballPos;
-		if (g_userId == 1)
-		{
-			g_player_pos = data.p1_pos;
-			g_enemy_pos = data.p2_pos;
-		}
-		else
-		{
-			g_player_pos = data.p2_pos;
-			g_enemy_pos = data.p1_pos;
-		}
-		render();
-		sendUpdate();
-	});
-
-	g_pong_socket.on("startGame", data => {
-		render();
-	})
-
-	g_pong_socket.on("disconnect", () => {
-		console.log("socket gone");
-		g_pong_socket.destroy();
-	})
-
-}
-
-connect();

@@ -14,6 +14,17 @@ class line {
 	}
 }
 
+class positionUpdate {
+	id		;
+	newpos	;
+
+	constructor (id, newpos)
+	{
+		this.id = id;
+		this.newpos = newpos;
+	}
+}
+
 function ChangeURL(title, urlPath, id){
 	console.log("push page", title);
 	window.history.pushState({ob : urlPath, id : id}, title, urlPath);
@@ -27,7 +38,7 @@ window.onpopstate = function(e){
     }
 	else
 	{
-		LoadMainContent("homepage.html", "#main-box");
+		LoadMainContent("homepage.html", "#main-box", "homepage");
 	}
 };
 
