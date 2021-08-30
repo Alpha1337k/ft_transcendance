@@ -32,7 +32,10 @@ export class ChatService {
 		let messages : string = '';
 		let parsedMessages : ChatMessage[] = JSON.parse(chat.messages);
 		for (let i = 0; i < parsedMessages.length; i++) {
-			messages += `<li><b>${parsedMessages[i].userId}</b>${parsedMessages[i].message}</li>`;
+			messages += `<div class="chatmessagebox">
+							<h5>${parsedMessages[i].userId}</h5>
+							<p>${parsedMessages[i].message}</p>
+						</div>`
 		}
 		return `
 				<div class="chat-window">
@@ -44,13 +47,10 @@ export class ChatService {
 					</div>
 				</div>
 				<div class="messagebox">
-					<ul>
-						${messages}
-					</ul>
+					${messages}
 				</div>
-				<hr>
 				<div class="dialogbox">
-					<input type="text" name="messagesend" id="mshh">
+					<input type="text" name="messagesend" autocomplete="off" id="mshh">
 					<button onclick="messagesend()">Send</button>
 				</div>
 			</div>

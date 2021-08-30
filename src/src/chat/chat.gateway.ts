@@ -36,6 +36,9 @@ export class ChatGateway
 	async recieveChatMessage(client: Socket, payload: IncomingChatMessage) {
 		console.log("message recieved!!!");
 		let msg : ChatMessage = await this.chatService.addMessage(payload);
-		this.server.emit("msgToClients", `<l1><b>${msg.userId}</b>${msg.message}</li>`);
+		this.server.emit("msgToClients",	`<div class="chatmessagebox">
+												<h5>${msg.userId}</h5>
+												<p>${msg.message}</p>
+											</div>`);
 	}
 }
