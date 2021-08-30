@@ -41,7 +41,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar {
-	width: 1vh;
+	width: 0.5vh;
   }
   
   /* Track */
@@ -118,7 +118,7 @@ body {
 	background-color: white;
 	border-radius: 1vh;
 	margin-top: 1vh;
-	width: 7vw;
+	width: 10vh;
 }
 
 .current-user-display div {
@@ -133,7 +133,7 @@ body {
 
 .current-user-content {
 	display: none;
-	width: 7vw;
+	width: 10vh;
 	background-color: white;
 	border-radius: 1vh;
 	padding: 0vh !important;
@@ -161,11 +161,12 @@ body {
 	max-height: 95vh;
 	background-color: lightcoral;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
+	gap: 3vh;
 }
 
 .friendbar {
-	width: 20vw;
+	width: 30vh;
 	background-color: #eaeaea;
 	border-radius: 1vh;
 	padding: 1vh;
@@ -215,14 +216,14 @@ body {
 
 .main-box {
 	height: 87vh;
-	width: 40vw;
+	width: 60vh;
 	padding: 2vh;
 	background-color: #eaeaea;
 	border-radius: 1vh;
 }
 
 .spectator-box {
-	width: 20vw;
+	width: 30vh;
 	height: 89vh;
 	padding: 1vh;
 	background-color: #eaeaea;
@@ -230,7 +231,7 @@ body {
 }
 
 .box-announcement {
-	text-align: center;
+	/*text-align: center;*/
 }
 
 .gameoptions {
@@ -326,7 +327,7 @@ body {
 	height: 30vh;
     background-color: white;
     border-radius: 1vh;
-    width: 15vw;
+    width: 22vh;
 	margin-right: 1vh;
 	background-color: #1f1f1f;
 	overflow: hidden;
@@ -338,6 +339,7 @@ body {
 	background-color: lightgray;
 	border-radius: 1vh 1vh 0 0;
 	padding: 1vh 1vh 0.5vh 1vh;
+	height: 3vh;
 }
 
 .chat-head a {
@@ -345,7 +347,7 @@ body {
 }
 
 .messagebox {
-	height: 23vh;
+	height: 22vh;
 }
 
 .dialogbox {
@@ -363,7 +365,16 @@ body {
 }
 
 .dialogbox button {
-	border-radius: 1vh;
+	width: 5vh;
+    height: 3vh;
+    background-color: white;
+	border: 0;
+	transition: 0.5s ease;
+	border-radius: 0;
+}
+
+.dialogbox button:hover {
+    background-color: lightgray;
 }
 
 .generaldata {
@@ -462,3 +473,113 @@ body {
 .playerbottom {
 	border-radius: 0 0 1vh 1vh;
 }
+
+.channelsdiv {
+	max-height: 60vh;
+}
+
+.spectatablediv {
+	max-height: 20vh;
+	padding-bottom: 1vh;
+}
+
+.spectateablecard:hover {
+	cursor: pointer;
+}
+
+.spectateablecard {
+	height: 2vh;
+	background-color: white;
+	border-radius: 1vh;
+	display: flex;
+	justify-content: space-around;
+	margin: 0.5vh;
+	padding: 0.5vh;
+}
+
+.spectateablecard:nth-child(even)  {
+	background-color:#eaeaea;
+}
+
+#spectateablegames {
+	border-radius: 1vh;
+	background-color: whitesmoke;
+	overflow-y: scroll;
+    max-height: 15vh;
+}
+
+#openchannels {
+	border-radius: 1vh;
+	background-color: whitesmoke;
+	max-height: 68vh;
+	padding-top: 0.5vh;
+}
+
+.channelcard {
+	background-color: white;
+	height: 5vh;
+	margin: 0.5vh;
+    border-radius: 1vh;
+    padding: 0vh 1vh 0 1vh;
+	display: flex;
+	justify-content: space-between;
+}
+
+.channelcard h3 {
+	margin-top: 1vh;
+}
+
+.channelcard:hover {
+	cursor: pointer;
+}
+
+.channelcard:nth-child(even)  {
+	background-color:#eaeaea;
+}
+
+.chatmessagebox {
+	background-color: white;
+    border-radius: 0.5vh;
+    width: 19vh;
+    word-wrap: break-word;
+    max-width: 20vh;
+	margin: 0.5vh;
+}
+
+.chatmessagebox h5 {
+	font-size: 1.25vh;
+	margin-left: 0.5vh;
+}
+
+.chatmessagebox p {
+	padding: 0 0.5vh 0.5vh 0.5vh;
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+.performancecard {
+	background-color: white;
+    border-radius: 1vh;
+    width: 6vh;
+    padding: 1vh;
+}
+
+.performancecard h5 {
+	text-align: center;
+}
+
+.performancecard p {
+	text-align: center;
+}
+
+.performancediv {
+	display: flex;
+	justify-content: space-around;
+}
+
