@@ -50,19 +50,20 @@ export class ProfileService {
 				</div>
 				<div class="user-perfomance">
 					<h3>Stats</h3>
-					<div>
+					<div class="performancediv">
+					<div class="performancecard">
 						<h5>Wins</h5>
 						<p>${user.wins}</p>
 					</div>
-					<div>
+					<div class="performancecard">
 						<h5>Losses</h5>
 						<p>${user.losses}</p>
 					</div>
-					<div>
-						<h5>Abandons</h5>
-						<p>0</p>
+					<div class="performancecard">
+						<h5>Rating</h5>
+						<p>${user.userElo}</p>
 					</div>
-					<div>
+					<div class="performancecard">
 						<h5>Ranking</h5>
 						<p>${user.UserRank}</p>
 					</div>
