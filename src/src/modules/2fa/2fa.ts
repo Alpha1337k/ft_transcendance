@@ -4,7 +4,7 @@ import * as readline from 'readline'
 
 var secrets = [];
 
-function getTwoFactorAuthenticationCode() {
+export function getTwoFactorAuthenticationCode() {
 	const secretCode = speakeasy.generateSecret({name: "Pong online"});
 	return {
 		otpauthUrl : secretCode.otpauth_url,
@@ -18,7 +18,11 @@ function createQrCodeAsImg(url:string) {
 	})
 }
 
-function check2faInput(input: string, secret : string)
+export async function createQrCodeAsURL(data : string) : Promise<string> {
+	return await qrcode.toDataURL(data);
+}
+
+export function check2faInput(input: string, secret : string)
 {
 	var check = speakeasy.totp.verify({secret : secret, encoding: "base32", token : input});
 	console.log("check returns", check);

@@ -7,6 +7,7 @@ import { FriendsModule } from './front/friends/friends.module';
 import { ProfileModule } from './front/profile/profile.module';
 import { ChatModule } from './chat/chat.module';
 import { PongModule } from './front/pong/pong.module';
+import { SettingsModule } from './front/settings/settings.module';
 
 @Module({
 	imports: [
@@ -25,7 +26,8 @@ import { PongModule } from './front/pong/pong.module';
 		FriendsModule,
 		ProfileModule,
 		ChatModule,
-		PongModule
+		PongModule,
+		SettingsModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

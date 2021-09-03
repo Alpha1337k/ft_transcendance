@@ -27,4 +27,8 @@ export class UserService {
 	async getUserById(id : number): Promise<UserEntity> {
 		return this.UserRepository.findOne(id);
 	}
+
+	async updateUser(user : UserEntity) {
+		this.UserRepository.manager.save(user);
+	}
 }

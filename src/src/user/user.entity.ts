@@ -32,7 +32,7 @@ export class UserEntity {
 	name: string;
 
 	@Column()
-	image: String;
+	image: string;
 
 	@Column({default: 0})
 	wins: number;
@@ -52,4 +52,6 @@ export class UserEntity {
 	@Column({type: "enum", enum: UserRank, default: UserRank.C})
 	UserRank: UserRank;
 
+	@Column({nullable: true})
+	twoFactorSecret: string;
 }
