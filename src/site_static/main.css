@@ -34,6 +34,10 @@ a {
 	text-decoration: none;
 }
 
+.red {
+	background-color: lightcoral;
+}
+
 a:hover {
     color:black; 
     text-decoration:none; 
@@ -57,14 +61,20 @@ a:hover {
   }
 
 button {
+	border-width: 0.1vh;
 	font-size: 1.5vh;
     background-color: white;
-    width: 100px;
+    width: 8vh;
     border-radius: 8vh;
     border-color: lightcoral;
 }
 
 button:active{background-color:lightgrey;}
+
+input {
+	border-width: 0.1vh;
+}
+
 
 
 body {
@@ -74,19 +84,18 @@ body {
 .loginscreen {
 	border-radius: 1vh;
 	background-color:#eaeaea;
-	width: 20vw;
+	width: 30vh;
 	height: 20vh;
 	padding: 1vh;
-    position: absolute;
-    left: 40vw;
-    top: 30%;
+	margin: 0 auto;
+    margin-top: 30vh;
 }
 
 .loginscreen input {
-	width: 15vw;
+	width: 25vh;
     height: 2vh;
 	border-radius: 1vh;
-	margin-left: 1.5vw;
+	margin-left: 1vh;
 	padding: 0 1vh 0 1vh;
 }
 
@@ -230,9 +239,6 @@ body {
 	border-radius: 1vh;
 }
 
-.box-announcement {
-	/*text-align: center;*/
-}
 
 .gameoptions {
 	display: flex;
@@ -308,11 +314,6 @@ body {
     width: 32vh;
     height: 48vh;
 	margin: 1vh auto;
-}
-
-
-.player-stats-training {
-	
 }
 
 #openchat-overlay {

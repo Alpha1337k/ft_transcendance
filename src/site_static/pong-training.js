@@ -1,20 +1,3 @@
-
-class vec_2 {
-	constructor (x, y)
-	{
-		this.x = x;
-		this.y = y;
-	}
-}
-
-class line {
-	constructor (p1, p2)
-	{
-		this.p1 = p1;
-		this.p2 = p2;
-	}
-}
-
 var c;
 var ctx;
 var width;
