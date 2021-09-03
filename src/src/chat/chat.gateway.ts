@@ -37,7 +37,7 @@ export class ChatGateway
 		console.log("message recieved!!!");
 		let msg : ChatMessage = await this.chatService.addMessage(payload);
 		this.server.emit("msgToClients",	`<div class="chatmessagebox">
-												<h5>${msg.userId}</h5>
+												<h5>${msg.sender}</h5>
 												<p>${msg.message}</p>
 											</div>`);
 	}

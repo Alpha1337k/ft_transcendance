@@ -17,24 +17,23 @@ export class ChatService {
 
 	async getChat(id : string): Promise<string>
 	{
-		console.log("chat id:", id);
 		let chat : ChatEntity = await this.ChatRepository.findOne({chatid : id});
 		if (chat == undefined || chat == null)
 		{
 			console.log("no chat found! creating new one");
 			let newchat = new ChatEntity();
 			newchat.chatid = id;
+			newchat.private = true;
 			newchat.usernames = ["John", "Jeff"];
-			newchat.messages = JSON.stringify([new ChatMessage("this is the start of your conversation!", 1)]);
 			this.ChatRepository.save(newchat).then(() => {console.log("----- saved a chat!")});
 			chat = newchat;
 		}
+		console.log(chat);
 		let messages : string = '';
-		let parsedMessages : ChatMessage[] = JSON.parse(chat.messages);
-		for (let i = 0; i < parsedMessages.length; i++) {
+		for (let i = 0; chat.messages != null && i < chat.messages.length; i++) {
 			messages += `<div class="chatmessagebox">
-							<h5>${parsedMessages[i].userId}</h5>
-							<p>${parsedMessages[i].message}</p>
+							<h5>${chat.messages[i].sender}</h5>
+							<p>${chat.messages[i].message}</p>
 						</div>`
 		}
 		return `
@@ -64,13 +63,12 @@ export class ChatService {
 
 	async addMessage(msg : IncomingChatMessage)
 	{
-		let chat : ChatEntity = await this.ChatRepository.findOne({chatid : msg.chatid});
-		let newmsg : ChatMessage = new ChatMessage(msg.message, msg.userid);
+		const chat : ChatEntity = await this.ChatRepository.findOne({chatid : msg.chatid});
+		const newmsg : ChatMessage = new ChatMessage(msg.message, chat);
 
-		let tmp : ChatMessage[] = JSON.parse(chat.messages);
-		tmp.push(newmsg);
-		chat.messages = JSON.stringify(tmp);
-		this.ChatRepository.save(chat);
+		await this.ChatRepository.manager.save(newmsg);
+		console.log(chat);
+
 		return newmsg;
 	}
 }
