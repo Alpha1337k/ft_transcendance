@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { concludedMatch, UserEntity } from 'src/user/user.entity';
+import { ConcludedMatch, UserEntity } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
 import * as lastSeen from 'src/modules/lastseen';
 
@@ -7,24 +7,25 @@ import * as lastSeen from 'src/modules/lastseen';
 export class ProfileService {
 	constructor (private readonly userService : UserService) {}
 
-	createHistoryDoms(matches : concludedMatch[]): string
+	createHistoryDoms(matches : ConcludedMatch[]): string
 	{
 		let rval : string = '';
 		if (matches == null || matches.length == 0)
 			return ("<h3>Nothing to display</h3>")
-		for (let index = 0; index < matches.length; index++) {
-			const m = matches[index];
-			rval += `
-			<div class="past-match">
-				<a>${m.p1.name}</a> <p> / </p><a>${m.p2.name}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
-			</div>`
-		}
+		//for (let index = 0; index < matches.length; index++) {
+		//	const m = matches[index];
+		//	rval += `
+		//	<div class="past-match">
+		//		<a>${m.players.name}</a> <p> / </p><a>${m.players.name}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
+		//	</div>`
+		//}
 		return rval;
 	}
 	
 	async getProfile(id : number) : Promise<string> {
 		let user : UserEntity = await this.userService.getUserById(id);
 	
+		console.log(user.history);
 		if (user == undefined)
 			return 'user not found';
 		let rval : string = `

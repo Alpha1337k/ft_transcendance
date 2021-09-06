@@ -33,4 +33,17 @@ export class FriendsService {
 		}
 		return rval;
 	}
+
+	async addFriend(id : number) {
+		const user = await this.userService.getUserById(1);
+		const toadd = await this.userService.getUserById(2);
+
+		user.addFriend(toadd);
+
+		this.userService.updateUser(user);
+
+		console.log("saved user!");
+
+		return "Added user!";
+	}
 }

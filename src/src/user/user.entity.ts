@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum UserRank {
 	SPLUS = 'S+',
@@ -9,24 +9,11 @@ export enum UserRank {
 	D = 'D'
 }
 
-export class concludedMatch {
-	p1 : UserEntity;
-	p2 : UserEntity;
-	p1Score: number;
-	p2Score: number;
-	constructor(p1: UserEntity, p2:UserEntity, p1Score:number, p2Score: number) {
-		this.p1 = p1;
-		this.p2 = p2;
-		this.p1Score = p1Score;
-		this.p2Score = p2Score;
-	}
-}
-
 @Entity()
 export class UserEntity {
 
-	@PrimaryGeneratedColumn()
-	userid: string;
+	@PrimaryGeneratedColumn("increment")
+	userid: number;
 
 	@Column()
 	name: string;
@@ -43,8 +30,9 @@ export class UserEntity {
 	@Column()
 	lastSeen: Date;
 
-	@Column('simple-array', {nullable: true})
-	history: concludedMatch[];
+	@ManyToMany(() => ConcludedMatch, history => history.players, {cascade: true})
+	@JoinTable()
+	history: ConcludedMatch[];
 
 	@Column({default: 800})
 	userElo: number;
@@ -54,4 +42,36 @@ export class UserEntity {
 
 	@Column({nullable: true})
 	twoFactorSecret: string;
+
+    @ManyToMany(() => UserEntity, {cascade: true})
+    @JoinTable()
+    friends: UserEntity[];
+
+	addFriend(user : UserEntity) {
+		if (this.history == null)
+			this.friends = new Array<UserEntity>();
+		this.friends.push(user);
+	}
+
+	addMatch(match : ConcludedMatch) {
+		if (this.history == null)
+			this.history = new Array<ConcludedMatch>();
+		this.history.push(match);
+	}
+}
+
+@Entity()
+export class ConcludedMatch {
+	@PrimaryGeneratedColumn("increment")
+	matchid: number;
+
+	@ManyToMany(() => UserEntity, players => players.history)
+	players: UserEntity;
+	
+	@Column()
+	p1Score: number;
+	
+	@Column()
+	p2Score: number;
+
 }
