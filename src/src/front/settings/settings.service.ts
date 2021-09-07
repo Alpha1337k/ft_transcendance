@@ -36,7 +36,9 @@ export class SettingsService {
 				
 					<h5>Profile picture</h5>
 					<p>.png only</p>
-					<input type="file" onchange="alert(2)">
+
+					<input id="fileupload" name="file" type="file" />
+					<button onclick="submitpf()">Send</button>   
 				
 					<h5>2fa</h5>
 					<input type="checkbox" name="2facheck" onchange="LoadMainContent('/settings/getQr', '#2fadiv', 'settings', false)" ${is2faenabled}>
@@ -46,6 +48,36 @@ export class SettingsService {
 					<button class="red">Delete account</h5>
 				</div>
 		
+				<script>
+					function submitpf()
+					{
+						var f = new FormData();
+						f.append('file', $('#fileupload')[0].files[0]);
+						$.ajax({
+							url: '/settings/updatepf',
+							type: 'post',
+							data: f,
+							processData: false,
+							contentType: false,
+							success:function(){
+								console.log("sucessful upload!");
+							},
+							error: function() {
+								console.log("whoops");
+							}
+						});
+						location.reload();
+					}
+				</script>
 				`
+	}
+
+	async updatePicture(image : string)
+	{
+		const user : UserEntity = await this.userService.getUserById(1);
+
+		user.image = image;
+
+		this.userService.updateUser(user);
 	}
 }
