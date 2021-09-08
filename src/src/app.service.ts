@@ -26,7 +26,7 @@ export class AppService {
 				<script src="chat.js"></script>
 				<script src="pong.js"></script>
 			</head>
-			<body>
+			<body onload="checkquery()">
 				<div class="loginscreen">
 					<h2>Welcome back!</h2>
 					<h5>Login</h5>
@@ -48,7 +48,7 @@ export class AppService {
 			return 'user is not logged in properly!!!';
 		return `
 			<div class="navbar">
-				<h1>Play Pong</h1>
+				<h1 onclick="LoadMainContent("homepage.html", "#main-box", "Home")">Play Pong</h1>
 				<div class="current-user-display">
 					<div class="current-user-content">
 						<div>

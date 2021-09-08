@@ -26,19 +26,19 @@ class positionUpdate {
 }
 
 function ChangeURL(title, urlPath, id){
-	console.log("push page", title);
-	window.history.pushState({ob : urlPath, id : id}, title, urlPath);
+	console.log("push page", title, urlPath);
+	window.history.pushState({ob : urlPath, id : id, title: title}
+							, undefined, '?' + urlPath);
 }
 
 window.onpopstate = function(e){
 	console.log("pop page", e);
     if(e.state){
-		document.title = e.state.pageTitle;
-		LoadMainContent(e.state.ob.substring(1), e.state.id, e.state.ob, false);
+		document.title = e.state.title;
+		LoadMainContent(e.state.ob, e.state.id, e.state.title, false);
     }
 	else
 	{
-		LoadMainContent("homepage.html", "#main-box", "homepage");
 	}
 };
 
@@ -66,23 +66,33 @@ var removeChat = function(param)
 
 var LoadMainContent = function (page, dom, pagename, pushUrl) {	
 	return new Promise(function(resolved, myReject) {
-		console.log("loading data into", dom);
+		console.log("loading "+page+" into", dom);
 		if(typeof dom === '')
 			dom = "#main-box";
 		if (pagename != undefined && pushUrl != false)
-			ChangeURL(pagename, "#"+page, dom);
+			ChangeURL(pagename, page, dom);
 		$(dom).val('');
 		$(dom).load(page, function() {resolved()});
 		});
 }
+
 
 async function loginUser() {
 	/*
 		login
 	*/
 	LoadMainContent("struct", "body").then(function () {
-	LoadMainContent("homepage.html", "#main-box", "Play Pong").then(function () {
+	LoadMainContent("homepage.html", "#main-box", "Home").then(function () {
 	LoadMainContent("friends", "#friends-tab");
 	});
 	});
+}
+
+async function checkquery() {
+	if (window.location.search.length > 0)
+	{
+		await LoadMainContent("struct", "body");
+		await LoadMainContent("friends", "#friends-tab");
+		await LoadMainContent(window.location.search.substr(1), '#main-box', "Pong", false);
+	}
 }
