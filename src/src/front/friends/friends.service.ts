@@ -26,7 +26,7 @@ export class FriendsService {
 						</div>
 						<div class="friend-linkbox">
 							<button onclick="LoadMainContent('profile/${f.userid}', '#main-box', 'profile')" class="smallbtn">웃</button>
-							<button onclick="LoadMainContent('chat/${f.userid}', '#openchat-overlay' ,'chat')" class="smallbtn">✉</button>
+							<button onclick="LoadMainContent('chat/${f.userid}', '#openchat-overlay')" class="smallbtn">✉</button>
 						</div>
 					</div>
 			`;
