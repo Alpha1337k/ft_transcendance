@@ -16,10 +16,14 @@ export class SettingsController {
 		return await this.settingsService.create2fadiv();
 	}
 
-	@Post("updatepf")
+	@Post("update")
 	@UseInterceptors(FileInterceptor('file'))
-	async getNewPF(@UploadedFile() file: Express.Multer.File) {
-		this.settingsService.updatePicture(file.buffer.toString('base64'));
+	async getNewPF(@UploadedFile() file: Express.Multer.File, @Body() form) {
+		console.log(form, form.username);
+		
+		this.settingsService.updateName(form.username);
+		if (file != null && file != undefined)
+			this.settingsService.updatePicture(file.buffer.toString('base64'));
 		return ("OK");
 	}
 }
