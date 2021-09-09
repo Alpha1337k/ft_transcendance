@@ -79,6 +79,7 @@ input {
 
 body {
 	min-height: 100vh;
+	overflow: hidden;
 }
 
 .loginscreen {
@@ -584,3 +585,82 @@ body {
 	justify-content: space-around;
 }
 
+.centergame {
+	margin: 0 auto;
+	width: 52vh;
+	background-color: gray;
+	border-radius: 1vh;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+#C_board {
+	width: 50vh;
+	height: 50vh;
+	margin: 0 1vh;
+	position: relative;
+	background-color: lightgray;
+	background-size: 12.5vh 12.5vh;
+    background-position: 0 0, 6.25vh 6.25vh;
+	background-image: linear-gradient(45deg, #fa574b 25%, transparent 25%, transparent 75%, #fa574b 75%, #fa574b),
+					  linear-gradient(45deg, #fa574b 25%, transparent 25%, transparent 75%, #fa574b 75%, #fa574b);
+}
+
+.C_piece {
+	min-width: 6.25vh;
+	min-height: 6.25vh;
+	width: 6.25vh;
+	height: 6.25vh;
+	position: absolute;
+    font-size: 4vh;
+    text-align: center;
+    background-color: white;
+    border-radius: 100%;
+}
+
+.C_playerdisplay {
+	height: 6vh;
+	background-color: darkgray;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-radius: 14px;
+}
+
+.C_playerdisplay img {
+	height: 4vh;
+    border-radius: 100%;
+    margin: 1vh
+}
+
+.C_playerinfo {
+	display: flex;
+	width: 300px;
+}
+
+.C_playerinfo h4 {
+	margin: 1vh 0 0vh 0;
+}
+
+.C_playerinfo p {
+	color: lightblue;
+}
+
+.C_timer {
+	background-color: white;
+	border-radius: 0.5vh;
+	height: 3.5vh;
+	margin: 1vh 2vh 0 0;
+}
+
+.C_timer h2 {
+	margin: 0.5vh;
+}
