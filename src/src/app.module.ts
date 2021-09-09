@@ -8,6 +8,7 @@ import { ProfileModule } from './front/profile/profile.module';
 import { ChatModule } from './chat/chat.module';
 import { PongModule } from './front/pong/pong.module';
 import { SettingsModule } from './front/settings/settings.module';
+import { ChessModule } from './front/chess/chess.module';
 
 @Module({
 	imports: [
@@ -27,7 +28,8 @@ import { SettingsModule } from './front/settings/settings.module';
 		ProfileModule,
 		ChatModule,
 		PongModule,
-		SettingsModule
+		SettingsModule,
+		ChessModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

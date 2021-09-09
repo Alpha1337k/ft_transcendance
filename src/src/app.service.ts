@@ -25,6 +25,7 @@ export class AppService {
 				<script src="socket.js"></script>
 				<script src="chat.js"></script>
 				<script src="pong.js"></script>
+				<script src="chess.js"></script>
 			</head>
 			<body onload="checkquery()">
 				<div class="loginscreen">
