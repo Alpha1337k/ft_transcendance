@@ -1,29 +1,36 @@
-import { Body, Controller, Get, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { SettingsService } from "./settings.service";
+import {
+	Body,
+	Controller,
+	Get,
+	Post,
+	UploadedFile,
+	UseInterceptors,
+} from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { SettingsService } from './settings.service';
 
-@Controller("settings")
+@Controller('settings')
 export class SettingsController {
-	constructor(private readonly settingsService : SettingsService) {}
+	constructor(private readonly settingsService: SettingsService) {}
 
 	@Get()
 	async returnSettings() {
 		return await this.settingsService.getSettings();
 	}
 
-	@Get("getQr")
+	@Get('getQr')
 	async return2fa() {
 		return await this.settingsService.create2fadiv();
 	}
 
-	@Post("update")
+	@Post('update')
 	@UseInterceptors(FileInterceptor('file'))
 	async getNewPF(@UploadedFile() file: Express.Multer.File, @Body() form) {
 		console.log(form, form.username);
-		
-		this.settingsService.updateName(form.username);
-		if (file != null && file != undefined)
-			this.settingsService.updatePicture(file.buffer.toString('base64'));
-		return ("OK");
+
+		await this.settingsService.updateName(form.username);
+		if (file != null)
+			await this.settingsService.updatePicture(file.buffer.toString('base64'));
+		return 'OK';
 	}
 }

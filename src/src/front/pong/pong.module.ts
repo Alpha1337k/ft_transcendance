@@ -5,8 +5,8 @@ import { PongGateway } from './pong.gateway';
 import { PongService } from './pong.service';
 
 @Module({
-  imports: [UserModule],
-  controllers: [PongController],
-  providers: [PongGateway, PongService],
+	imports: [UserModule],
+	controllers: [PongController],
+	providers: [PongGateway, PongService],
 })
 export class PongModule {}

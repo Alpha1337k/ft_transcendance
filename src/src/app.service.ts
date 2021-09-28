@@ -4,7 +4,7 @@ import { UserService } from './user/user.service';
 
 @Injectable()
 export class AppService {
-	constructor (private readonly userService : UserService) {}
+	constructor(private readonly userService: UserService) {}
 
 	getMain() {
 		return `
@@ -43,10 +43,8 @@ export class AppService {
 	}
 
 	async getStructure() {
-
-		let user : UserEntity = await this.userService.getUserById(1);
-		if (user == undefined)
-			return 'user is not logged in properly!!!';
+		const user: UserEntity = await this.userService.getUserById(1);
+		if (user == undefined) return 'user is not logged in properly!!!';
 		return `
 			<div class="navbar">
 				<h1 onclick="LoadMainContent("homepage.html", "#main-box", "Home")">Play Pong</h1>
@@ -125,7 +123,7 @@ export class AppService {
 			</div>
 
 			<div id="openchat-overlay"></div>
-			
+
 	`;
 	}
 }

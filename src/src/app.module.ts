@@ -29,7 +29,7 @@ import { ChessModule } from './front/chess/chess.module';
 		ChatModule,
 		PongModule,
 		SettingsModule,
-		ChessModule
+		ChessModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],

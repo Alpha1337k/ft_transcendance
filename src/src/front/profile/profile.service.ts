@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { ConcludedMatch, UserEntity } from 'src/user/user.entity';
+import { UserEntity } from 'src/user/user.entity';
+import { Match } from '../../match/match.entity';
 import { UserService } from 'src/user/user.service';
 import * as lastSeen from 'src/modules/lastseen';
 
 @Injectable()
 export class ProfileService {
-	constructor (private readonly userService : UserService) {}
+	constructor(private readonly userService: UserService) {}
 
-	createHistoryDoms(matches : ConcludedMatch[]): string
-	{
-		let rval : string = '';
+	createHistoryDoms(matches: Match[]): string {
+		const rval = '';
 		if (matches == null || matches.length == 0)
-			return ("<h3>Nothing to display</h3>")
+			return '<h3>Nothing to display</h3>';
 		//for (let index = 0; index < matches.length; index++) {
 		//	const m = matches[index];
 		//	rval += `
@@ -21,14 +21,13 @@ export class ProfileService {
 		//}
 		return rval;
 	}
-	
-	async getProfile(id : number) : Promise<string> {
-		let user : UserEntity = await this.userService.getUserById(id);
-	
+
+	async getProfile(id: number): Promise<string> {
+		const user: UserEntity = await this.userService.getUserById(id);
+
 		console.log(user.history);
-		if (user == undefined)
-			return 'user not found';
-		let rval : string = `
+		if (user == undefined) return 'user not found';
+		const rval = `
 			<div class="userprofile">
 				<div class="generaldata">
 					<img src="data:image/png;base64, ${user.image}">
@@ -37,7 +36,7 @@ export class ProfileService {
 						<p>${lastSeen.createLastSeen(user)}</p>
 					</div>
 					<div>
-						<button>Add</button>
+						<button onclick="">Add</button>
 						<br>
 						<br>
 						<button>Invite</button>
@@ -71,7 +70,7 @@ export class ProfileService {
 				</div>
 		</div>		
 		`;
-		
+
 		return rval;
 	}
 }

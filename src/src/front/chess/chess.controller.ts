@@ -1,19 +1,16 @@
-import { Controller, Get, Param } from "@nestjs/common";
-import { ChessService } from "./chess.service";
+import { Controller, Get, Param } from '@nestjs/common';
+import { ChessService } from './chess.service';
 
-@Controller("chess")
+@Controller('chess')
 export class ChessController {
-	constructor(private readonly chessService : ChessService) {
-		
-	}
+	constructor(private readonly chessService: ChessService) {}
 	@Get()
 	returnQueue(): string {
 		return this.chessService.getQueueScreen();
 	}
 
-	@Get(":id")
+	@Get(':id')
 	returnGame(@Param() params) {
 		return this.chessService.getChessScreen(params.id as string);
 	}
-
 }

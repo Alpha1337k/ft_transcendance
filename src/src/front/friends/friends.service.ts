@@ -5,16 +5,16 @@ import * as lastSeen from 'src/modules/lastseen';
 
 @Injectable()
 export class FriendsService {
-	constructor (private readonly userService : UserService) {}
+	constructor(private readonly userService: UserService) {}
 
 	async createFriendsList() {
-		let rval : string = ``;
-		let friends : UserEntity[] = await this.userService.getAllUsers();
+		let rval = ``;
+		const friends: UserEntity[] = await this.userService.getFriends(1);
 
 		for (let index = 0; index < friends.length; index++) {
-			const f : UserEntity = friends[index];
+			const f: UserEntity = friends[index];
 
-			const lastSeenText : string = lastSeen.createLastSeen(f);
+			const lastSeenText: string = lastSeen.createLastSeen(f);
 
 			rval += `<div class="friendbox">
 						<div class="playerdetails">
@@ -34,16 +34,10 @@ export class FriendsService {
 		return rval;
 	}
 
-	async addFriend(id : number) {
-		const user = await this.userService.getUserById(1);
-		const toadd = await this.userService.getUserById(2);
-
-		user.addFriend(toadd);
-
-		this.userService.updateUser(user);
-
-		console.log("saved user!");
-
-		return "Added user!";
+	async addFriend(id: number) {
+		const user = await this.userService.getUserById(1); // should be self.id
+		await this.userService.addFriend(user.userid, id);
+		console.log('saved user!');
+		return 'Added user!';
 	}
 }
