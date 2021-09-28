@@ -61,6 +61,10 @@
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   },
+  "prettier": {
+    "singleQuote": true,
+    "useTabs": true
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
