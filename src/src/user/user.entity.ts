@@ -1,4 +1,11 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import {
+	Column,
+	Entity,
+	JoinTable,
+	ManyToMany,
+	PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Match } from '../match/match.entity';
 
 export enum UserRank {
 	SPLUS = 'S+',
@@ -6,13 +13,12 @@ export enum UserRank {
 	A = 'A',
 	B = 'B',
 	C = 'C',
-	D = 'D'
+	D = 'D',
 }
 
 @Entity()
 export class UserEntity {
-
-	@PrimaryGeneratedColumn("increment")
+	@PrimaryGeneratedColumn('increment')
 	userid: number;
 
 	@Column()
@@ -21,57 +27,29 @@ export class UserEntity {
 	@Column()
 	image: string;
 
-	@Column({default: 0})
+	@Column({ default: 0 })
 	wins: number;
 
-	@Column({default: 0})
+	@Column({ default: 0 })
 	losses: number;
 
 	@Column()
 	lastSeen: Date;
 
-	@ManyToMany(() => ConcludedMatch, history => history.players, {cascade: true})
+	@ManyToMany(() => Match, (match) => match.players, { onUpdate: 'CASCADE' })
 	@JoinTable()
-	history: ConcludedMatch[];
+	history: Match[];
 
-	@Column({default: 800})
+	@ManyToMany(() => UserEntity, { onDelete: `SET NULL`, cascade: true })
+	@JoinTable()
+	friends: UserEntity[];
+
+	@Column({ default: 800 })
 	userElo: number;
 
-	@Column({type: "enum", enum: UserRank, default: UserRank.C})
+	@Column({ type: 'enum', enum: UserRank, default: UserRank.C })
 	UserRank: UserRank;
 
-	@Column({nullable: true})
+	@Column({ nullable: true })
 	twoFactorSecret: string;
-
-    @ManyToMany(() => UserEntity, {cascade: true})
-    @JoinTable()
-    friends: UserEntity[];
-
-	addFriend(user : UserEntity) {
-		if (this.history == null)
-			this.friends = new Array<UserEntity>();
-		this.friends.push(user);
-	}
-
-	addMatch(match : ConcludedMatch) {
-		if (this.history == null)
-			this.history = new Array<ConcludedMatch>();
-		this.history.push(match);
-	}
-}
-
-@Entity()
-export class ConcludedMatch {
-	@PrimaryGeneratedColumn("increment")
-	matchid: number;
-
-	@ManyToMany(() => UserEntity, players => players.history)
-	players: UserEntity;
-	
-	@Column()
-	p1Score: number;
-	
-	@Column()
-	p2Score: number;
-
 }
