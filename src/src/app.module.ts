@@ -14,7 +14,7 @@ import { ChessModule } from './front/chess/chess.module';
 	imports: [
 		TypeOrmModule.forRoot({
 			type: 'postgres',
-			host: 'localhost',
+			host: 'postgres',
 			port: 5432,
 			username: 'postgres',
 			password: 'codam',
