@@ -208,8 +208,8 @@ export class PongService {
 	addToQueue(clientid: Socket, server: Server): void {
 		this.searching_players.push(clientid);
 		if (this.searching_players.length >= 2) {
-			await p1 = this.searching_players.pop();
-			await p2 = this.searching_players.pop();
+			const p1 = this.searching_players.pop();
+			const p2 = this.searching_players.pop();
 			this.running_games[this.gameid] = new Game(server, this.gameid);
 
 			server.to(p1.id).emit('gameFound', { gameId: this.gameid, userId: 1 });

@@ -15,22 +15,22 @@ export class UserService {
 		return await this.UserRepository.find();
 	}
 
-	async addUserRandom(): Promise<void> {
+	async addUserRandom(): Promise<UserEntity> {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = 'jeff';
-		user.image = (await generateAvatar()).toString('base64');
-
-		await this.UserRepository.manager.save(user).then(() => {
-			console.log('---- saved a img!');
-		});
+		user.image = '';
+		// user.image = (await generateAvatar()).toString('base64');
+		if (user.userid > 1) await this.addFriend(user.userid, 1);
+		return this.UserRepository.manager.save(user);
 	}
 
 	async addUser(name: string): Promise<void> {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = name;
-		user.image = (await generateAvatar()).toString('base64');
+		user.image = '';
+		// user.image = (await generateAvatar()).toString('base64');
 		await this.UserRepository.manager.save(user);
 	}
 
@@ -67,9 +67,15 @@ export class UserService {
 	async addFriend(userId: number, friendId: number) {
 		if (userId == friendId) return;
 		const user = await this.getUserWithFriends(userId);
-		if (user.friends.find((x) => x.userid == friendId)) return;
+		console.log(user);
+		console.log(user.friends);
+		if (user.friends.find((x) => x.userid == friendId)) {
+			console.log('already friends');
+			return;
+		}
 		const friend = await this.getUserById(friendId);
-		user.friends = [friend];
+		if (user.friends == null) user.friends = [friend];
+		else user.friends.push(friend);
 		return this.UserRepository.save(user);
 	}
 

@@ -11,7 +11,12 @@ export class MatchService {
 		private userService: UserService
 	) {}
 
-	async addMatch(idP1: number, idP2: number, p1Score: number, p2Score: number) {
+	async addMatch(
+		idP1: number,
+		idP2: number,
+		p1Score: number,
+		p2Score: number
+	): Promise<Match> {
 		const p1 = await this.userService.getUserById(idP1);
 		const p2 = await this.userService.getUserById(idP2);
 		const newMatch = this.matchRepo.create({
@@ -28,7 +33,7 @@ export class MatchService {
 			++p2.wins;
 		}
 		newMatch.players = [p1, p2];
-		await this.matchRepo.save(newMatch);
+		return this.matchRepo.save(newMatch);
 	}
 
 	async getMatchDetails(matchId: number): Promise<Match> {
