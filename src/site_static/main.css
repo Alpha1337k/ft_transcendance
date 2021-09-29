@@ -401,7 +401,7 @@ body {
 }
 
 .past-match:nth-child(even)  {
-	background-color:#eaeaea;
+	background-color:#f3f3f3;
 }
 
 .past-match:nth-child(odd) {

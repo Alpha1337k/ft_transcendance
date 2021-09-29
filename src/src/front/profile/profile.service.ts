@@ -19,7 +19,11 @@ export class ProfileService {
 		for (let index = 0; index < matches.length; index++) {
 			const m = await this.matchService.getMatchDetails(matches[index].matchid);
 			rval += `
-				<a>${m.players[0]}</a> <p> / </p><a>${m.players[1]}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
+			<div class="past-match">
+				<a onclick="LoadMainContent('/profile/${m.players[0].userid}', '#main-box')">${m.players[0].name}</a>
+				<p> / </p>
+				<a onclick="LoadMainContent('/profile/${m.players[1].userid}', '#main-box')">${m.players[1].name}</a>
+				<h5>${m.p1Score} - ${m.p2Score}</h5>
 			</div>`;
 		}
 		return rval;
@@ -28,6 +32,10 @@ export class ProfileService {
 	async getProfile(id: number): Promise<string> {
 		const user: UserEntity = await this.userService.getUserById(id);
 		const history = await this.userService.getUserHistory(id);
+
+		await this.matchService.addMatch(1, 2, 10, 1);
+		await this.matchService.addMatch(1, 2, 10, 1);
+		
 		console.log(user.history);
 		if (user == undefined) return 'user not found';
 		const rval = `
