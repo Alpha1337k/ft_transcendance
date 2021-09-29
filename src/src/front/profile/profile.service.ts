@@ -47,7 +47,7 @@ export class ProfileService {
 						<p>${lastSeen.createLastSeen(user)}</p>
 					</div>
 					<div>
-						<button onclick="LoadMainContent('/friends/add${id}', '#main-box'); LoadMainContent('/profile/${id}', '#main-box')">Add</button>
+						<button onclick="LoadMainContent('/friends/add/${id}', '#main-box'); LoadMainContent('/profile/${id}', '#main-box')">Add</button>
 						<br>
 						<br>
 						<button>Invite</button>

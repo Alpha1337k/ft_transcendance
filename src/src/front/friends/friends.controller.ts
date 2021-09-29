@@ -10,7 +10,7 @@ export class FriendsController {
 		return await this.friendsService.createFriendsList();
 	}
 
-	@Get('add:id')
+	@Get('add/:id')
 	async AddFriend(@Param() params) {
 		return await this.friendsService.addFriend(params.id as number);
 	}
