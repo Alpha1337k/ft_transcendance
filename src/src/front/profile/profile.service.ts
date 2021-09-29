@@ -1,34 +1,36 @@
 import { Injectable } from '@nestjs/common';
-import { ConcludedMatch, UserEntity } from 'src/user/user.entity';
+import { UserEntity } from 'src/user/user.entity';
+import { Match } from '../../match/match.entity';
 import { UserService } from 'src/user/user.service';
 import * as lastSeen from 'src/modules/lastseen';
+import { MatchService } from '../../match/match.service';
 
 @Injectable()
 export class ProfileService {
-	constructor (private readonly userService : UserService) {}
+	constructor(
+		private readonly userService: UserService,
+		private readonly matchService: MatchService
+	) {}
 
-	createHistoryDoms(matches : ConcludedMatch[]): string
-	{
-		let rval : string = '';
+	async createHistoryDoms(matches: Match[]): Promise<string> {
+		let rval = '';
 		if (matches == null || matches.length == 0)
-			return ("<h3>Nothing to display</h3>")
-		//for (let index = 0; index < matches.length; index++) {
-		//	const m = matches[index];
-		//	rval += `
-		//	<div class="past-match">
-		//		<a>${m.players.name}</a> <p> / </p><a>${m.players.name}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
-		//	</div>`
-		//}
+			return '<h3>Nothing to display</h3>';
+		for (let index = 0; index < matches.length; index++) {
+			const m = await this.matchService.getMatchDetails(matches[index].matchid);
+			rval += `
+				<a>${m.players[0]}</a> <p> / </p><a>${m.players[1]}</a><h5>${m.p1Score} - ${m.p2Score}</h5>
+			</div>`;
+		}
 		return rval;
 	}
-	
-	async getProfile(id : number) : Promise<string> {
-		let user : UserEntity = await this.userService.getUserById(id);
-	
+
+	async getProfile(id: number): Promise<string> {
+		const user: UserEntity = await this.userService.getUserById(id);
+		const history = await this.userService.getUserHistory(id);
 		console.log(user.history);
-		if (user == undefined)
-			return 'user not found';
-		let rval : string = `
+		if (user == undefined) return 'user not found';
+		const rval = `
 			<div class="userprofile">
 				<div class="generaldata">
 					<img src="data:image/png;base64, ${user.image}">
@@ -37,7 +39,7 @@ export class ProfileService {
 						<p>${lastSeen.createLastSeen(user)}</p>
 					</div>
 					<div>
-						<button>Add</button>
+						<button onclick="LoadMainContent('/friends/add${id}', '#main-box'); LoadMainContent('/profile/${id}', '#main-box')">Add</button>
 						<br>
 						<br>
 						<button>Invite</button>
@@ -46,7 +48,7 @@ export class ProfileService {
 				<div class="user-history">
 					<h3>Last games</h3>
 					<div class="match-history-table">
-						${this.createHistoryDoms(user.history)}
+						${await this.createHistoryDoms(history)}
 					</div>
 				</div>
 				<div class="user-perfomance">
@@ -71,7 +73,7 @@ export class ProfileService {
 				</div>
 		</div>		
 		`;
-		
+
 		return rval;
 	}
 }

@@ -2,12 +2,11 @@ import { Module } from '@nestjs/common';
 import { UserModule } from 'src/user/user.module';
 import { ProfileController } from './profile.controller';
 import { ProfileService } from './profile.service';
+import { MatchModule } from '../../match/match.module';
 
 @Module({
-	imports: [
-		UserModule
-	],
-  controllers: [ProfileController],
-  providers: [ProfileService]
+	imports: [UserModule, MatchModule],
+	controllers: [ProfileController],
+	providers: [ProfileService],
 })
 export class ProfileModule {}

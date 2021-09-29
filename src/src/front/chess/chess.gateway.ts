@@ -5,22 +5,26 @@ import {
 	WebSocketServer,
 	OnGatewayConnection,
 	OnGatewayDisconnect,
-  } from '@nestjs/websockets';
+} from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import { ChessService } from './chess.service';
 
 @WebSocketGateway()
-export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class ChessGateway
+	implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
 	@WebSocketServer() server: Server;
-	constructor(private readonly chessService : ChessService) {}
+	constructor(private readonly chessService: ChessService) {}
 
 	private logger: Logger = new Logger('ChessGateway');
 
 	@SubscribeMessage('requestChessGameData')
 	handleData(client: Socket, payload: string) {
-		console.log("GameData!:", payload);
-		this.server.to(client.id).emit("getChessGameData", this.chessService.getGameData(client, payload));
+		console.log('GameData!:', payload);
+		this.server
+			.to(client.id)
+			.emit('getChessGameData', this.chessService.getGameData(client, payload));
 	}
 
 	@SubscribeMessage('sendChessMove')
@@ -28,9 +32,8 @@ export class ChessGateway implements OnGatewayInit, OnGatewayConnection, OnGatew
 		this.chessService.checkMove(client, payload);
 	}
 
-
 	@SubscribeMessage('findChessGame')
-	findGame(client: Socket, payload : string | any) {
+	findGame(client: Socket, payload: string | any) {
 		this.chessService.addToQueue(client, this.server);
 	}
 
