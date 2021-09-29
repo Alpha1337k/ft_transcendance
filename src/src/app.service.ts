@@ -47,7 +47,9 @@ export class AppService {
 		if (user == undefined) return 'user is not logged in properly!!!';
 		return `
 			<div class="navbar">
-				<h1 onclick="LoadMainContent("homepage.html", "#main-box", "Home")">Play Pong</h1>
+				<a onclick="LoadMainContent('homepage.html', '#main-box', 'Home')">
+					<h1>Play Pong</h1>
+				</a>
 				<div class="current-user-display">
 					<div class="current-user-content">
 						<div>

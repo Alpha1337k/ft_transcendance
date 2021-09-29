@@ -62,7 +62,7 @@ function dragElement(elmnt) {
 		//}	
 		// set the element's new position:
 		elmnt.style.top = convertPXToVh(elmnt.offsetTop - pos2 * flipped) + "vh";
-		elmnt.style.left = convertPXToVh(elmnt.offsetLeft - pos1 * flipped) + "vh";
+		elmnt.style.left = convertPXToVh(elmnt.offsetLeft - pos1) + "vh";
 	}
 
 	function closeDragElement(e) {

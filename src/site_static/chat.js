@@ -1,7 +1,13 @@
 
-function messagesend() {
+function messagesend(this) {
 	console.log("sending message!");
-	g_socket.emit("sendChatMessage", {userid:1, chatid: 1, message: document.getElementById("mshh").value});
+	g_socket.emit("sendChatMessage", {userid:1, chatid: 2, message: document.getElementById("mshh").value});
+
+	document.getElementById("mshh").value = '';
+}
+
+function scrollchat() {
+
 }
 
 g_socket.on("connect", () => {

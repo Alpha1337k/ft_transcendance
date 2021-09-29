@@ -28,7 +28,7 @@ export class ChatService {
 			});
 			chat = newchat;
 		}
-		console.log(chat);
+		console.log("Chat messages:", chat);
 		let messages: string = '';
 		for (let i = 0; chat.messages != null && i < chat.messages.length; i++) {
 			messages += `<div class="chatmessagebox">

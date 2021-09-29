@@ -540,6 +540,7 @@ body {
 }
 
 .chatmessagebox {
+	overflow-y: scroll;
 	background-color: white;
     border-radius: 0.5vh;
     width: 19vh;
