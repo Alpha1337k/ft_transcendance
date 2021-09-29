@@ -2,6 +2,8 @@ version: "3.3"
 services:
   web:
     build: .
+    volumes:
+      - "./src:/serv"
     ports:
       - "5000:5000"
     depends_on:

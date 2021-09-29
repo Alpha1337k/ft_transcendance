@@ -1,8 +1,6 @@
 FROM node:16.10
 
-COPY src/ /serv
-
-RUN cd serv && npm install -v
-
+WORKDIR /serv
 EXPOSE 5000
-CMD cd serv && npm run start
+EXPOSE 5432
+ENTRYPOINT "./entrypoint.sh"
