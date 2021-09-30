@@ -70,7 +70,7 @@ export class AppService {
 					<div class="box-announcement">
 						<h3>Friends</h3>
 					</div>
-					<input type="text" placeholder="search">
+					<input type="text" placeholder="search" class="friends-searchbar">
 
 					<div id="friends-list">
 					</div>
