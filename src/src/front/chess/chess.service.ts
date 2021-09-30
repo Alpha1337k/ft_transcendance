@@ -135,7 +135,6 @@ class ChessGame {
 	firstTurn: boolean[] = [true, true];
 	playerTurn: number[] = [0, 0];
 	playerTime: number[] = Array<number>(2);
-
 	turnStart: number;
 
 	p1_castle: boolean[] = [true, true];

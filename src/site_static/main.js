@@ -76,7 +76,7 @@ async function loginUser() {
 	*/
 	LoadMainContent('struct', 'body').then(function () {
 		LoadMainContent('homepage.html', '#main-box', 'Home').then(function () {
-			LoadMainContent('friends', '#friends-tab');
+			LoadMainContent('friends', '#friends-list');
 		});
 	});
 }
@@ -84,7 +84,7 @@ async function loginUser() {
 async function checkquery() {
 	if (window.location.search.length > 0) {
 		await LoadMainContent('struct', 'body');
-		await LoadMainContent('friends', '#friends-tab');
+		await LoadMainContent('friends', '#friends-list');
 		await LoadMainContent(
 			window.location.search.substr(1),
 			'#main-box',
