@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Match } from './match.entity';
-import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from '../user/user.service';
 
 @Injectable()
@@ -20,18 +19,17 @@ export class MatchService {
 	): Promise<Match> {
 		const p1 = await this.userService.getUserById(idP1);
 		const p2 = await this.userService.getUserById(idP2);
+
 		const newMatch = this.matchRepo.create({
 			p1Score: p1Score,
 			p2Score: p2Score,
-			p1Elo: p1.userElo,
-			p2Elo: p2.userElo,
 		});
 		if (p1Score > p2Score) {
-			++p1.wins;
-			++p2.losses;
+			await this.userService.updateElo(p1.userid, true, p2.userElo);
+			await this.userService.updateElo(p2.userid, false, p1.userElo);
 		} else {
-			++p1.losses;
-			++p2.wins;
+			await this.userService.updateElo(p1.userid, false, p2.userElo);
+			await this.userService.updateElo(p2.userid, true, p1.userElo);
 		}
 		newMatch.players = [p1, p2];
 		return this.matchRepo.save(newMatch);
