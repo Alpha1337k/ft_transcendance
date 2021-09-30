@@ -25,13 +25,13 @@ export class PongGateway
 		client: Socket,
 		payload: { id: string; updt: positionUpdate }
 	): void {
-		console.log('Update!:', payload);
+		// console.log('Update!:', payload);
 		this.appService.updateGame(payload);
 	}
 
 	@SubscribeMessage('getGameData')
 	handleData(client: Socket, payload: string) {
-		console.log('GameData!:', payload);
+		// console.log('GameData!:', payload);
 		this.server
 			.to(client.id)
 			.emit('getGameData', this.appService.getGameData(payload));

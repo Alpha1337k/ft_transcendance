@@ -91,7 +91,7 @@ class Game {
 		const gameRef = this;
 		this.inter = setInterval(function () {
 			if (gameRef.gameEnded) {
-				console.log('ending interval!');
+				// console.log('ending interval!');
 				clearInterval(gameRef.inter);
 				gameRef.#serverRef.to(gameRef.roomId).emit('gameFinished', '');
 				return;
@@ -136,7 +136,7 @@ class Game {
 			for (let index = 0; index < this.walls.length; index++) {
 				const element = this.walls[index];
 				if (intersect(oldpos, this.ballPos, element.p1, element.p2)) {
-					console.log('collission with wall!!');
+					// console.log('collission with wall!!');
 					this.ballSpeed *= 1.1;
 					if (element.p1.y < element.p2.y) this.ballDir.x = -this.ballDir.x;
 					else this.ballDir.y = -this.ballDir.y;
@@ -152,7 +152,7 @@ class Game {
 				intersect(oldpos, this.ballPos, this.p2_pos, player2_end)
 			) {
 				this.ballSpeed *= 1.1;
-				console.log('COLLISSION!!');
+				// console.log('COLLISSION!!');
 				this.ballDir.y = -this.ballDir.y;
 				this.ballPos.x += this.ballDir.x * this.#deltaTime * this.ballSpeed;
 				this.ballPos.y -= this.ballDir.y * this.#deltaTime * this.ballSpeed;
@@ -194,7 +194,7 @@ export class PongService {
 
 	getGameData(searchId: string): Game {
 		const game = this.running_games[searchId];
-		console.log(game);
+		// console.log(game);
 		return game;
 	}
 

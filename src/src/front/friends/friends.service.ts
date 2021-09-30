@@ -36,8 +36,11 @@ export class FriendsService {
 
 	async addFriend(id: number) {
 		const user = await this.userService.getUserById(1); // should be self.id
-		await this.userService.addFriend(user.userid, id);
-		console.log('saved user!');
-		return 'Added user!';
+		try {
+			await this.userService.addFriend(user.userid, id);
+			console.log('saved user!');
+		} catch (err) {
+			console.log(err);
+		}
 	}
 }
