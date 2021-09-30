@@ -184,6 +184,13 @@ body {
 	overflow-y: scroll;
 }
 
+.friends-searchbar {
+	border-radius: 1vh;
+    padding: 0.1vh;
+    padding-left: 1vh;
+    width: 24vh;
+}
+
 .friendbox {
 	min-height: 6vh;
 	height: 6vh;
