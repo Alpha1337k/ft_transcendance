@@ -1,0 +1,5 @@
+FROM node:16.10
+
+WORKDIR /serv
+EXPOSE 4200
+ENTRYPOINT "./entrypoint.sh"

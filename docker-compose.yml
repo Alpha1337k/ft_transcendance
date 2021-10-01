@@ -17,3 +17,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: codam
       POSTGRES_DB: test
+
+  front:
+    build: frontend/.
+    volumes:
+      - "./frontend:/serv"
+    ports:
+      - "4200:4200"
