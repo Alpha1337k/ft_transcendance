@@ -14,10 +14,4 @@ export class Match {
 
 	@Column()
 	p2Score: number;
-
-	@Column()
-	p1Elo: number;
-
-	@Column()
-	p2Elo: number;
 }

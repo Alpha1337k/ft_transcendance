@@ -14,7 +14,7 @@ export class SettingsService {
 		user.twoFactorSecret = codedata.base32;
 		const qrcode = await twofa.createQrCodeAsURL(codedata.otpauthUrl);
 
-		this.userService.updateUser(user);
+		await this.userService.updateUser(user);
 		return `
 				<img src="${qrcode}">
 				<p>We will only show this once! so be sure to save it or you're fucked</p>
@@ -80,7 +80,7 @@ export class SettingsService {
 
 		user.image = image;
 
-		this.userService.updateUser(user);
+		await this.userService.updateUser(user);
 	}
 
 	async updateName(newName: string) {
@@ -89,7 +89,7 @@ export class SettingsService {
 
 		if (users.find((u) => u.name == newName && u.userid != 1) == undefined) {
 			user.name = newName;
-			this.userService.updateUser(user);
+			await this.userService.updateUser(user);
 		}
 	}
 }

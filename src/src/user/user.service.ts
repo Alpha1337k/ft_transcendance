@@ -1,7 +1,6 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { UserEntity } from './user.entity';
-import { generateAvatar } from 'src/modules/generateAvatar/generateAvatar';
+import { UserEntity, UserRank } from './user.entity';
 import { Match } from '../match/match.entity';
 
 @Injectable()
@@ -20,6 +19,7 @@ export class UserService {
 		user.lastSeen = new Date();
 		user.name = 'jeff';
 		user.image = '';
+		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		if (user.userid > 1) await this.addFriend(user.userid, 1);
 		return this.UserRepository.manager.save(user);
@@ -30,6 +30,7 @@ export class UserService {
 		user.lastSeen = new Date();
 		user.name = name;
 		user.image = '';
+		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		await this.UserRepository.manager.save(user);
 	}
@@ -46,6 +47,7 @@ export class UserService {
 		return this.UserRepository.findOne(id, obj);
 	}
 
+	// match functions
 	async getUserHistory(id: number): Promise<Match[]> {
 		const user = await this.UserRepository.findOne(id, {
 			relations: ['history'],
@@ -53,6 +55,34 @@ export class UserService {
 		return user.history;
 	}
 
+	async updateElo(id: number, won: boolean, opponentElo: number) {
+		// make thes available somewhere else
+		const multi = 400;
+		const kFactor = 32;
+
+		const user = await this.UserRepository.findOne(id);
+		const Q1 = Math.pow(10, user.userElo / multi);
+		const Q2 = Math.pow(10, opponentElo / multi);
+		const E1 = Q1 / (Q1 + Q2);
+		let wonGame;
+		if (won) {
+			++user.wins;
+			wonGame = 1;
+		} else {
+			++user.losses;
+			wonGame = 0;
+		}
+		user.userElo = Math.round(user.userElo + kFactor * (wonGame - E1));
+		if (user.userElo < 500) user.UserRank = UserRank.D;
+		if (user.userElo >= 500 && user.userElo < 1000) user.UserRank = UserRank.C;
+		if (user.userElo >= 1000 && user.userElo < 1500) user.UserRank = UserRank.B;
+		if (user.userElo >= 1500 && user.userElo < 2000) user.UserRank = UserRank.A;
+		if (user.userElo >= 2000 && user.userElo < 2500) user.UserRank = UserRank.S;
+		if (user.userElo >= 2500) user.UserRank = UserRank.SPLUS;
+		return this.UserRepository.save(user);
+	}
+
+	// friend functions
 	async getUserWithFriends(id: number): Promise<UserEntity> {
 		return this.UserRepository.findOne(id, {
 			relations: ['friends'],
@@ -65,17 +95,13 @@ export class UserService {
 	}
 
 	async addFriend(userId: number, friendId: number) {
-		if (userId == friendId) return;
+		if (userId == friendId) throw "can't add yourself";
 		const user = await this.getUserWithFriends(userId);
-		console.log(user);
-		console.log(user.friends);
 		if (user.friends.find((x) => x.userid == friendId)) {
-			console.log('already friends');
-			return;
+			throw 'already friends';
 		}
 		const friend = await this.getUserById(friendId);
-		if (user.friends == null) user.friends = [friend];
-		else user.friends.push(friend);
+		user.friends.push(friend);
 		return this.UserRepository.save(user);
 	}
 

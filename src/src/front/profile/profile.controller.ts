@@ -7,7 +7,7 @@ export class ProfileController {
 
 	@Get(':id')
 	async returnProfile(@Param() param): Promise<string> {
-		console.log(param.id);
+		// console.log(param.id);
 		return await this.profileService.getProfile(param.id as number);
 	}
 }

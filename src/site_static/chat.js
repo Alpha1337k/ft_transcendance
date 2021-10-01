@@ -1,4 +1,3 @@
-
 function messagesend(this) {
 	console.log("sending message!");
 	g_socket.emit("sendChatMessage", {userid:1, chatid: 2, message: document.getElementById("mshh").value});
@@ -6,9 +5,9 @@ function messagesend(this) {
 	document.getElementById("mshh").value = '';
 }
 
-function scrollchat() {
-
-}
+// function scrollchat() {
+//
+// }
 
 g_socket.on("connect", () => {
 	console.log("connected!!!");
