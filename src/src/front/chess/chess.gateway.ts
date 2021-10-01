@@ -10,7 +10,7 @@ import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import { ChessService } from './chess.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class ChessGateway
 	implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {

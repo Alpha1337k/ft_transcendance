@@ -11,7 +11,7 @@ import { ChatService, IncomingChatMessage } from './chat.service';
 import { Logger } from '@nestjs/common';
 import { ChatMessage } from './chat.entity';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true }/*  */)
 export class ChatGateway
 	implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
