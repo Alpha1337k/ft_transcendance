@@ -10,13 +10,14 @@ import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import { PongService, positionUpdate } from './pong.service';
 
-@WebSocketGateway()
+@WebSocketGateway({ cors: true })
 export class PongGateway
 	implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
 	@WebSocketServer() server: Server;
 
-	constructor(private readonly appService: PongService) {}
+	constructor(private readonly appService: PongService) {
+	}
 
 	private logger: Logger = new Logger('PongGateway');
 
@@ -44,6 +45,7 @@ export class PongGateway
 
 	afterInit(server: Server) {
 		this.logger.log('Init');
+		this.appService.sendQueueUpdates(this.server);
 	}
 
 	handleDisconnect(client: Socket) {

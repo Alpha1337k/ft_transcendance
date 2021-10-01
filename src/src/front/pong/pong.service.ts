@@ -192,6 +192,13 @@ export class PongService {
 	gameid: string = 'a';
 	searching_players: Socket[] = [];
 
+	async sendQueueUpdates(server: Server)
+	{
+		setInterval(() => {
+			server.emit("QueueUpdate", Math.round(Math.random() * 1000));
+		}, 30000);
+	}
+
 	getGameData(searchId: string): Game {
 		const game = this.running_games[searchId];
 		console.log(game);
