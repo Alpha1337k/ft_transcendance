@@ -228,6 +228,11 @@ export class PongService {
 			this.gameid = String.fromCharCode(this.gameid.charCodeAt(0) + 1);
 		}
 	}
+	removeFromQueue(clientid: Socket): void {
+		const idx = this.searching_players.findIndex(x => x.id === clientid.id);
+		this.searching_players.splice(idx, 1);
+	}
+
 	getQueueScreen(): string {
 		return `<div class="box-announcement">
 					<h1>Searching</h1>

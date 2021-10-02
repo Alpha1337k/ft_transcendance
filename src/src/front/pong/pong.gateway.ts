@@ -43,6 +43,11 @@ export class PongGateway
 		this.appService.addToQueue(client, this.server);
 	}
 
+	@SubscribeMessage('leaveQueue')
+	removeQueue(client: Socket, payload: string | any) {
+		this.appService.removeFromQueue(client);
+	}
+
 	afterInit(server: Server) {
 		this.logger.log('Init');
 		this.appService.sendQueueUpdates(this.server);

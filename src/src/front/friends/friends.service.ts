@@ -34,6 +34,12 @@ export class FriendsService {
 		return rval;
 	}
 
+	async getFriends(id: number) {
+		const friends: UserEntity[] = await this.userService.getFriends(1);
+
+		return friends;
+	}
+
 	async addFriend(id: number) {
 		const user = await this.userService.getUserById(1); // should be self.id
 		try {
