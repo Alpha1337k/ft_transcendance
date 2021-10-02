@@ -1,0 +1,13 @@
+<div class="friendbox">
+	<div class="playerdetails">
+		<img src="data:image/png;base64">
+		<div>
+			<h5>{{user?.name}}</h5>
+			<p>online</p>
+		</div>
+	</div>
+	<div class="friend-linkbox">
+		<button routerLink="/profile/{{user?.userid}}" class="smallbtn">웃</button>
+		<button routerLink="/chat/{{user?.userid}}" class="smallbtn">✉</button>
+	</div>
+</div>
