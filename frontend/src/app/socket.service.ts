@@ -9,8 +9,8 @@ export class SocketService {
 
 	constructor(private socket: Socket) {}
 
-	sendMessage(msg: string) {
-		this.socket.emit('message', msg);
+	sendMessage(name:string, msg: string) {
+		this.socket.emit(name, msg);
 	}
 
 	connect() {
@@ -27,7 +27,7 @@ export class SocketService {
 
 	create_obs(name: string)
 	{
-		let observable = new Observable(observer => {
+		let observable = new Observable<any>(observer => {
 			this.socket.on(name, (data : any) => {
 			  observer.next(data);    
 			});

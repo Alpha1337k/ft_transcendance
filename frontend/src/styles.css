@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 * {
 	font-family: 'Poppins', sans-serif;
 	font-size: 1.25vh;
@@ -185,6 +184,13 @@ body {
 	overflow-y: scroll;
 }
 
+.friends-searchbar {
+	border-radius: 1vh;
+    padding: 0.1vh;
+    padding-left: 1vh;
+    width: 24vh;
+}
+
 .friendbox {
 	min-height: 6vh;
 	height: 6vh;
@@ -292,11 +298,20 @@ body {
 
 .activities-showcase
 {
-    height: 32vh;
+    height: 27vh;
+	width: 54vh;
     padding: 2vh;
 	background-color:white;
-	border-radius: 1vh;
+	border-radius: 1vh 1vh 0 0;
 	overflow-y: scroll;
+}
+
+.activities-input
+{
+	width: 54vh;
+    padding: 1vh 2vh 1vh 2vh;
+    border: 0;
+    border-radius: 0 0 1vh 1vh;
 }
 
 .activities-showcase::-webkit-scrollbar-track {
@@ -665,4 +680,37 @@ body {
 
 .C_timer h2 {
 	margin: 0.5vh;
+}
+
+
+.queuewrapper {
+
+	min-width: 50vh;
+}
+
+.queuecontainer {
+    background-color: white;
+    border-radius: 1vh;
+    height: 5.5vh;
+    padding: 0 1vh;
+    margin-top: 0.5vh;
+    width: 38vh;
+	display: flex;
+	justify-content: space-between;
+}
+
+.cancelbtn {
+	background-color: lightcoral;
+    color: white;
+    height: 5vh;
+    width: 5vh;
+    text-align: center;
+    font-size: 3.5vh;
+    margin-top: 0.25vh;
+    border-radius: 100%;
+}
+
+.cancelbtn:hover {
+	background-color: lightgray;
+	cursor: pointer;
 }
