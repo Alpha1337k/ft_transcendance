@@ -33,14 +33,8 @@ export class ProfileService {
 		const user: UserEntity = await this.userService.getUserById(id);
 		const history = await this.userService.getUserHistory(id);
 
-		// await this.matchService.addMatch(3, 1, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
-		await this.matchService.addMatch(1, 2, 10, 1);
+		//await this.matchService.addMatch(1, 2, 10, 1);
+
 
 		if (user == undefined) return 'user not found';
 		const rval = `
@@ -88,5 +82,18 @@ export class ProfileService {
 		`;
 
 		return rval;
+	}
+
+	async getProfileJson(id: number): Promise<Object>
+	{
+		const user: UserEntity = await this.userService.getUserById(id);
+		const history = await this.userService.getUserHistory(id);
+
+		user.history = history;
+		delete user.twoFactorSecret;
+		delete user.friends;
+		delete user.image;
+
+		return user;
 	}
 }
