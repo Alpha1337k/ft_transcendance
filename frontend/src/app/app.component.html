@@ -25,13 +25,18 @@
 			<a routerLink="/">
 				<h1>Play Pong</h1>
 			</a>
+			
+			<div class="queuewrapper">
+				<ng-container #queuecontainer></ng-container> 
+			</div>
+
 			<div class="current-user-display">
 				<div class="current-user-content">
 					<div>
 					<hr>
 					<a routerLink="/profile/{{userid}}">Profile</a><br>
 					<a routerLink="/settings/">Settings</a><br>
-					<a (click)="test()">Logout</a>
+					<a>Logout</a>
 					</div>
 				</div>
 				<div style="display: flex;">
@@ -41,12 +46,7 @@
 			</div>
 		</div>
 		<div class="main-content">
-			<div class="friendbar" id="friends-tab">
-				<div class="box-announcement">
-					<h3>Friends</h3>
-				</div>
 				<app-friends></app-friends>
-			</div>
 			<div class="main-box" id="main-box">
 				<!--<app-homescreen></app-homescreen>-->
 				<router-outlet></router-outlet>

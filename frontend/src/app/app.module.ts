@@ -9,6 +9,9 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FriendcardComponent } from './friendcard/friendcard.component';
+import { QueuescreenComponent } from './queuescreen/queuescreen.component';
+import { PongComponent } from './pong/pong.component';
 
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
@@ -20,6 +23,9 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
     SettingsComponent,
     HomescreenComponent,
 	ProfileComponent,
+ FriendcardComponent,
+ QueuescreenComponent,
+ PongComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +34,7 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 	RouterModule.forRoot([
 		{path: 'settings/', component: SettingsComponent},
 		{path: 'profile/:id', component: ProfileComponent,  pathMatch: "prefix"},
+		{path: 'play/pong/:id', component: PongComponent,  pathMatch: "prefix"},
 		{path: '', component: HomescreenComponent}
 	]),
 	HttpClientModule

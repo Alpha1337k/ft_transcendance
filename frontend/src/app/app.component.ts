@@ -1,4 +1,6 @@
-import { Component, ViewContainerRef, ComponentFactoryResolver} from '@angular/core';
+import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild} from '@angular/core';
+import { QueueService } from './queue.service';
+import { QueuescreenComponent } from './queuescreen/queuescreen.component';
 import { SocketService } from './socket.service';
 
 @Component({
@@ -11,8 +13,15 @@ export class AppComponent {
   count = 0;
   userid = 1;
 
-	constructor (private ws : SocketService) {
-		
+	@ViewChild('queuecontainer', { read: ViewContainerRef })
+	container!: ViewContainerRef;
+
+	constructor (private ws : SocketService, private queueService: QueueService,
+				private cfr: ComponentFactoryResolver)
+	{
+		this.queueService.changeEmitted$.subscribe(val => {
+			this.updateQueueScreen(val);
+		});
 	}
 	
   ngOnInit(): void {
@@ -20,7 +29,14 @@ export class AppComponent {
 	this.ws.connect()
 	
 	}
-	test() {
-		
+	updateQueueScreen(type: string)
+	{
+		console.log("wow a queue", type);
+		const factory = this.cfr.resolveComponentFactory(QueuescreenComponent);
+
+		this.container.remove();
+		const ret = this.container.createComponent(factory);
+		this.queueService.conna = ret;
+		ret.instance.initCalls(type);
 	}
 }
