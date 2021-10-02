@@ -1,2 +1,41 @@
-<p>profile works!</p>
-<div [innerHTML]="profileHTML"></div>
+<div class="userprofile">
+	<div class="generaldata">
+		<img src="data:image/png;base64">
+		<div>
+			<h1>{{user?.name}}</h1>
+			<p>Online</p>
+		</div>
+		<div>
+			<button (click)="addUser()">Add</button>
+			<br>
+			<br>
+			<button>Invite</button>
+		</div>
+	</div>
+	<div class="user-history">
+		<h3>Last games</h3>
+		<div class="match-history-table">
+			Nothing to show
+		</div>
+	</div>
+	<div class="user-perfomance">
+		<h3>Stats</h3>
+		<div class="performancediv">
+		<div class="performancecard">
+			<h5>Wins</h5>
+			<p>{{user?.wins}}</p>
+		</div>
+		<div class="performancecard">
+			<h5>Losses</h5>
+			<p>{{user?.losses}}</p>
+		</div>
+		<div class="performancecard">
+			<h5>Rating</h5>
+			<p>{{user?.userElo}}</p>
+		</div>
+		<div class="performancecard">
+			<h5>Ranking</h5>
+			<p>{{user?.UserRank}}</p>
+		</div>
+	</div>
+</div>
