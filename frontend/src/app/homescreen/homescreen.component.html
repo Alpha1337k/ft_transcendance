@@ -4,11 +4,11 @@
 		<h5>There are currently {{ queuecount }} players looking for a match</h5>
 	</div>
 	<div class="gameoptions">
-		<div onclick="LoadMainContent('pong/', '#main-box', 'Playing Pong')">
+		<div (click)="queueCall('pong')">
 			<h1>▯</h1>
 			<p>Pong</p>
 		</div>
-		<div onclick="LoadMainContent('chess/', '#main-box', 'Playing Chess')">
+		<div (click)="queueCall('chess')">
 			<h1>♞</h1>
 			<p>Chess</p>
 		</div>
@@ -41,5 +41,6 @@
 				<p><a>Jeff</a> has reached an new milestone score of 1400 elo! </p>
 			</div>
 		</div>
+		<input type="text" placeholder="post something!" class="activities-input">
 	</div>
 </div>

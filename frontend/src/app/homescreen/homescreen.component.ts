@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { QueueService } from '../queue.service';
 import { SocketService } from '../socket.service';
 
 @Component({
@@ -8,10 +9,10 @@ import { SocketService } from '../socket.service';
   styleUrls: ['./homescreen.component.css']
 })
 export class HomescreenComponent implements OnInit {
-	constructor(private ws: SocketService) { }
+	constructor(private ws: SocketService, private queueService: QueueService) { }
 	public queuecount: number = 1;
 	connection: Subscription | undefined;
-
+	@Output() queueEvent = new EventEmitter<string>();
 
   ngOnInit(): void {
 	//this.ws.set_on("QueueUpdate", this.updateQueue);
@@ -24,6 +25,10 @@ export class HomescreenComponent implements OnInit {
 
   ngOnDestroy(): void {
 	this.connection?.unsubscribe();
+  }
+
+  queueCall(type: string) {
+	  this.queueService.emitChange(type);
   }
 
 
