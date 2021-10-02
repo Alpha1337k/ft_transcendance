@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { SocketService } from '../socket.service';
 
 @Component({
@@ -7,15 +8,22 @@ import { SocketService } from '../socket.service';
   styleUrls: ['./homescreen.component.css']
 })
 export class HomescreenComponent implements OnInit {
-	queuecount = 0;
-  constructor(private ws: SocketService) { }
+	constructor(private ws: SocketService) { }
+	public queuecount: number = 1;
+	connection: Subscription | undefined;
 
-  updateQueue(data: number) {
-	  this.queuecount = data;
-  }
 
   ngOnInit(): void {
-	this.ws.set_on("QueueUpdate", this.updateQueue);
+	//this.ws.set_on("QueueUpdate", this.updateQueue);
+	this.connection = this.ws.create_obs("QueueUpdate").subscribe((count) => {
+		console.log("update!", count);
+		this.queuecount = count as number;
+	});
+	
+  }
+
+  ngOnDestroy(): void {
+	this.connection?.unsubscribe();
   }
 
 
