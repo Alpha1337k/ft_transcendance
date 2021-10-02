@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,25 @@ export class SocketService {
 		if (this.socket.connect())
 		{
 			console.log("connected!!");
-			this.socket.on("QueueUpdate", (data: number) => {
-				console.log(data);
-			})
 		}
 	}
 
 	set_on(name: string, func: any)
 	{
 		this.socket.on(name, func);
+	}
+
+	create_obs(name: string)
+	{
+		let observable = new Observable(observer => {
+			this.socket.on(name, (data : any) => {
+			  observer.next(data);    
+			});
+			return () => {
+
+			};
+		});
+		return observable;
 	}
 	
 }
