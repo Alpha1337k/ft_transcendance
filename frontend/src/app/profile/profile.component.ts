@@ -3,33 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { Match, User } from '../modules/interfaces';
 
-interface Match {
-	matchid: number;
-	players: User[];
-	p1Score: number;
-	p2Score: number;
-}
-
-enum UserRank {
-	SPLUS = 'S+',
-	S = 'S',
-	A = 'A',
-	B = 'B',
-	C = 'C',
-	D = 'D',
-}
-
-interface User {
-	userid:		string;
-	name:		string;
-	wins:		number;
-	losses: 	number;
-	lastSeen:	Date;
-	history:	Match[];
-	userElo:	number;
-	UserRank:	UserRank;
-}
 
 @Component({
   selector: 'app-profile',
