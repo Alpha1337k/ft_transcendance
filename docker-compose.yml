@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  web:
+  backend:
     build: .
     volumes:
       - "./src:/serv"
@@ -23,4 +23,4 @@ services:
     volumes:
       - "./frontend:/serv"
     ports:
-      - "4200:4200"
+      - "80:80"

@@ -1,2 +1,3 @@
+npm i -g @angular/cli
 npm install
-npm run watch
+ng serve --host 0.0.0.0 --port 80
