@@ -1,1 +1,53 @@
-<p>settings works!</p>
+<div class="box-announcement">
+    <h1>Settings</h1>
+</div>
+<br>
+<!-- <form [formGroup]="settingsForm" (ngSubmit)="submit()"> -->
+<div class="settingsform">
+    <div>
+        <h5>Appearance</h5>
+        
+        <h6>Profile picture</h6>
+        <div class="settings-picture">
+            <img src="data:image/png;base64">
+            <div>
+                <p>.png only</p>
+                <input id="fileupload" name="file" type="file" (change)="handleFileInput($event)">
+            </div>
+        </div>
+        <h6>Username</h6>
+        <input type="text" id="username" value="{{nameValue}}" class="friends-searchbar" [(ngModel)]="nameValue">
+    </div>
+    <div>
+        <h5>2fa</h5>
+        <input type="checkbox" id="cb2fa" [(ngModel)]="is2faChecked">
+        <label for="cb2fa">Enabled</label>
+        <div id="2fadiv"></div>
+    </div>
+    <div>
+        <h5>Privacy</h5>
+
+        <h6>Profile visibility</h6>
+        <input type="radio" id="pr1" class="radioset" name="privacyRadio" [value]="0" [checked]="profile_level === 0 ? true : false" [(ngModel)]="profile_level">
+        <label for="pr1"> public</label><br>
+        <input type="radio" id="pr2" class="radioset" name="privacyRadio" [value]="1" [checked]="profile_level === 1 ? true : false" [(ngModel)]="profile_level">
+        <label for="pr2"> friends only</label><br>  
+        <input type="radio" id="pr3" class="radioset" name="privacyRadio" [value]="2" [checked]="profile_level === 2 ? true : false" [(ngModel)]="profile_level">
+        <label for="pr3"> private</label><br><br>
+        <h6>Chat permissions</h6>
+        <input type="radio" id="pr1" class="radioset" name="chatRadio" [value]="0" [checked]="chat_level === 0 ? true : false" [(ngModel)]="chat_level">
+        <label for="pr1"> everyone</label><br>
+        <input type="radio" id="pr2" class="radioset" name="chatRadio" [value]="1" [checked]="chat_level === 1 ? true : false" [(ngModel)]="chat_level">
+        <label for="pr2"> friends only</label><br>  
+        <input type="radio" id="pr3" class="radioset" name="chatRadio" [value]="2" [checked]="chat_level === 2 ? true : false" [(ngModel)]="chat_level">
+        <label for="pr3"> nobody</label><br><br>
+
+        <input type="checkbox" id="bancheck" [(ngModel)]="blockDelete">
+        <label for="bancheck"> Clear blocklist</label>
+    </div>
+</div>
+<!-- </form> -->
+
+<br><br>
+<button onclick="window.history.back();">Back</button>
+<button (click)="submit()">Submit</button>

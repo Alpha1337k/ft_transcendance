@@ -9,6 +9,14 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SettingsService } from './settings.service';
 
+interface formdata {
+	name: string;
+	s2fa: string;
+	profilePrivacy: string;
+	chatPrivacy: string;
+	deleteBlocked: string;
+}
+
 @Controller('settings')
 export class SettingsController {
 	constructor(private readonly settingsService: SettingsService) {}
@@ -25,11 +33,11 @@ export class SettingsController {
 
 	@Post('update')
 	@UseInterceptors(FileInterceptor('file'))
-	async getNewPF(@UploadedFile() file: Express.Multer.File, @Body() form) {
-		console.log(form, form.username);
+	async getNewPF(@UploadedFile() file: Express.Multer.File, @Body() form : formdata) {
+		console.log(form, file !== null);
 
-		await this.settingsService.updateName(form.username);
-		if (file != null)
+		await this.settingsService.updateName(form.name);
+		if (file !== null)
 			await this.settingsService.updatePicture(file.buffer.toString('base64'));
 		return 'OK';
 	}
