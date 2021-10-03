@@ -13,6 +13,8 @@ import { FriendcardComponent } from './friendcard/friendcard.component';
 import { QueuescreenComponent } from './queuescreen/queuescreen.component';
 import { PongComponent } from './pong/pong.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChessComponent } from './chess/chess.component';
+import { ChesspieceComponent } from './chesspiece/chesspiece.component';
 
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
@@ -20,6 +22,7 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, pathMatch: "prefix"},
   { path: 'profile/:id', component: ProfileComponent,  pathMatch: "prefix"},
   { path: 'play/pong/:id/:usr', component: PongComponent,  pathMatch: "prefix"},
+  { path: 'play/chess/:id/:usr', component: ChessComponent,  pathMatch: "prefix"},
   { path: '', component: HomescreenComponent}
 ];
 
@@ -34,6 +37,8 @@ const routes: Routes = [
     FriendcardComponent,
     QueuescreenComponent,
     PongComponent,
+    ChessComponent,
+    ChesspieceComponent
   ],
   imports: [
     BrowserModule,

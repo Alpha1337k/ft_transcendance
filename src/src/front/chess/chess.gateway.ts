@@ -37,6 +37,11 @@ export class ChessGateway
 		this.chessService.addToQueue(client, this.server);
 	}
 
+	@SubscribeMessage('leaveChessQueue')
+	removeQueue(client: Socket, payload: string | any) {
+		this.chessService.removeFromQueue(client);
+	}
+
 	afterInit(server: Server) {
 		this.logger.log('Init');
 	}

@@ -16,6 +16,8 @@ interface initdata {
 })
 export class QueuescreenComponent implements OnInit {
 	queuecount = 0;
+	type: string = '';
+
   constructor(private ws: SocketService, private router: Router, private queueService: QueueService) { }
 	connection: Subscription | undefined;
 
@@ -26,18 +28,33 @@ export class QueuescreenComponent implements OnInit {
 		console.log("update!", initdata);
 
 		this.router.navigate([`/play/pong/${initdata.gameId}/${initdata.userId}`])
+		this.killqueue();
+	
+	});
+	console.log('hallo');
+	this.connection = this.ws.create_obs("chessGameFound").subscribe((initdata: initdata) => {
+		console.log("update!", initdata);
+
+		this.router.navigate([`/play/chess/${initdata.gameId}/${initdata.userId}`])
+		this.killqueue();
 	});
   }
 
   ngOnDestroy(): void {
 	  console.log('daag');
-	  this.ws.sendMessage("leaveQueue", '');
-
-  }
+	  if (this.type === "pong")
+		this.ws.sendMessage("leaveQueue", '');
+		else if (this.type === "chess")
+			this.ws.sendMessage("leaveChessQueue", '');
+	}
 
   initCalls(type: string): void {
-	this.ws.sendMessage("findGame", '');
-  }
+	this.type = type;
+	if (type === "pong")
+		this.ws.sendMessage("findGame", '');
+	else if (type === "chess")
+		this.ws.sendMessage("findChessGame", '');
+	}
 
   killqueue() {
 	this.queueService.conna?.destroy();
