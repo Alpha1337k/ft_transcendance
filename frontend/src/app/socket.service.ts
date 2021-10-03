@@ -9,7 +9,7 @@ export class SocketService {
 
 	constructor(private socket: Socket) {}
 
-	sendMessage(name:string, msg: string) {
+	sendMessage(name:string, msg: any) {
 		this.socket.emit(name, msg);
 	}
 

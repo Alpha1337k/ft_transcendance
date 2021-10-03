@@ -34,7 +34,7 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 	RouterModule.forRoot([
 		{path: 'settings/', component: SettingsComponent},
 		{path: 'profile/:id', component: ProfileComponent,  pathMatch: "prefix"},
-		{path: 'play/pong/:id', component: PongComponent,  pathMatch: "prefix"},
+		{path: 'play/pong/:id/:usr', component: PongComponent,  pathMatch: "prefix"},
 		{path: '', component: HomescreenComponent}
 	]),
 	HttpClientModule

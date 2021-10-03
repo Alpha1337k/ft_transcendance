@@ -25,7 +25,7 @@ export class QueuescreenComponent implements OnInit {
 	  this.connection = this.ws.create_obs("gameFound").subscribe((initdata: initdata) => {
 		console.log("update!", initdata);
 
-		this.router.navigate([`/play/pong/${initdata.gameId}`])
+		this.router.navigate([`/play/pong/${initdata.gameId}/${initdata.userId}`])
 	});
   }
 

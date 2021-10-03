@@ -149,7 +149,7 @@ g_socket.on("getScoreUpdate", data => {
 });
 
 g_socket.on("getGameUpdate", data => {
-	console.log("gameupdate!!", data);
+	//console.log("gameupdate!!", data);
 	if (lasttime == undefined)
 		lasttime = Date.now();
 	deltatime = (Date.now() - lasttime) / 1000;

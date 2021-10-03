@@ -1,0 +1,31 @@
+<div class="box-announcement">
+	<h1>Online!</h1>
+</div>
+<div class="gamedisplay">
+	<div class="playerdisplay playertop">
+		<div class="playerinfo" routerLink='/profile/{{p2?.userid}}'>
+			<img src="data:image/png;base64" alt="?">
+			<div>
+				<h4 id="p2_name">{{p1?.name}}</h4>
+				<p>({{p1?.userElo}})</p>
+			</div>
+		</div>
+		<div class="scorecounter">
+			<h2 id="p1_score">{{p1_score}}</h2>
+		</div>
+	</div>
+	<canvas id="pong-canvas" #canvas class="pong-canvas linkcanvas" width = "400" height = "600" style="background-color: grey;" >
+	</canvas>
+	<div class="playerdisplay playerbottom">
+		<div class="playerinfo" routerLink='/profile/{{p2?.userid}}'>
+			<img src="data:image/png;base64" alt="?">
+			<div>
+				<h4 id="p2_name">{{p2?.name}}</h4>
+				<p>({{p2?.userElo}})</p>
+			</div>
+		</div>
+		<div class="scorecounter">
+			<h2 id="p2_score">{{p2_score}}</h2>
+		</div>
+	</div>
+</div>

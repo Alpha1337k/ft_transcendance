@@ -104,14 +104,18 @@ class Game {
 	}
 
 	update_position(updt: positionUpdate) {
-		if (updt.id == 1) {
+		if (updt.id === 1) {
 			if (updt.newpos.x < 5) this.p1_pos.x = 5;
 			else if (updt.newpos.x > 85) this.p1_pos.x = 85;
 			else this.p1_pos.x = updt.newpos.x;
-		} else if (updt.id == 2) {
+		} else if (updt.id === 2) {
 			if (updt.newpos.x < 5) this.p2_pos.x = 5;
 			else if (updt.newpos.x > 85) this.p2_pos.x = 85;
 			else this.p2_pos.x = updt.newpos.x;
+		}
+		else
+		{
+			console.log("wat de kanker is dit?????");
 		}
 	}
 
@@ -210,6 +214,7 @@ export class PongService {
 
 		if (game == null) return;
 		game.update_position(updt.updt);
+		console.log("p1_pos:", game.p1_pos.x, game.p2_pos.x, updt);
 	}
 
 	addToQueue(clientid: Socket, server: Server): void {
