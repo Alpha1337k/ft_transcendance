@@ -66,7 +66,6 @@ button {
     background-color: white;
     width: 8vh;
     border-radius: 8vh;
-    border-color: lightcoral;
 }
 
 button:active{background-color:lightgrey;}
@@ -188,7 +187,7 @@ body {
 	border-radius: 1vh;
     padding: 0.1vh;
     padding-left: 1vh;
-    width: 24vh;
+    width: 20vh;
 }
 
 .friendbox {

@@ -14,6 +14,10 @@ export class UserService {
 		return await this.UserRepository.find();
 	}
 
+	async getAllUsersQuery(obj: any): Promise<UserEntity[]> {
+		return await this.UserRepository.find(obj);
+	}
+
 	async addUserRandom(): Promise<UserEntity> {
 		const user = new UserEntity();
 		user.lastSeen = new Date();

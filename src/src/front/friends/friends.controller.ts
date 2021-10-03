@@ -19,4 +19,9 @@ export class FriendsController {
 	async AddFriend(@Param() params) {
 		return await this.friendsService.addFriend(params.id as number);
 	}
+
+	@Get('find/:id')
+	async GetUsers(@Param() params) {
+		return await this.friendsService.findUsers(params.id as string);
+	}
 }

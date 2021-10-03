@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
 import * as lastSeen from 'src/modules/lastseen';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class FriendsService {
@@ -48,5 +49,11 @@ export class FriendsService {
 		} catch (err) {
 			console.log(err);
 		}
+	}
+
+	async findUsers(name: string) {
+		const users = await this.userService.getAllUsersQuery({name: Like(`%${name}%`)});
+
+		return users;
 	}
 }
