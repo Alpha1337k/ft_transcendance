@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild} from '@angular/core';
+import { ChatService } from './chat.service';
+import { ChatComponent } from './chat/chat.component';
 import { QueueService } from './queue.service';
 import { QueuescreenComponent } from './queuescreen/queuescreen.component';
 import { SocketService } from './socket.service';
@@ -16,19 +19,35 @@ export class AppComponent {
 	@ViewChild('queuecontainer', { read: ViewContainerRef })
 	container!: ViewContainerRef;
 
+	@ViewChild('chatcontainer', { read: ViewContainerRef })
+	chatcontainer!: ViewContainerRef;
+
 	constructor (private ws : SocketService, private queueService: QueueService,
-				private cfr: ComponentFactoryResolver)
+				private cfr: ComponentFactoryResolver, private cs: ChatService)
 	{
 		this.queueService.changeEmitted$.subscribe(val => {
 			this.updateQueueScreen(val);
 		});
+
+		this.cs.changeEmitted$.subscribe(val => {
+			this.openChat(val);
+		})
 	}
 	
-  ngOnInit(): void {
+	ngOnInit(): void {
 	this.count = 1;
 	this.ws.connect()
-	
+
 	}
+	openChat(chatid: number) {
+		console.log("wow a chat", chatid);
+		const factory = this.cfr.resolveComponentFactory(ChatComponent);
+		const ret = this.chatcontainer.createComponent(factory);
+		this.cs.openChats.push(ret);
+		ret.instance.init(chatid, 1);
+		
+	}
+
 	updateQueueScreen(type: string)
 	{
 		console.log("wow a queue", type);

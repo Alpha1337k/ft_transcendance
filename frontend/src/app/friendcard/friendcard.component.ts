@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChatService } from '../chat.service';
 import { User } from '../modules/interfaces';
 
 @Component({
@@ -8,7 +9,7 @@ import { User } from '../modules/interfaces';
 })
 export class FriendcardComponent implements OnInit {
 	user: User | undefined;
-  constructor() { }
+  constructor(private cs: ChatService) { }
 
   ngOnInit(): void {
   }
@@ -16,6 +17,10 @@ export class FriendcardComponent implements OnInit {
 	public load(user: User)
 	{
 		this.user = user;
+	}
+
+	openchat() {
+		this.cs.emitChange(this.user?.userid);
 	}
 
 }

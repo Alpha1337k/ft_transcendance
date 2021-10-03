@@ -1,0 +1,16 @@
+<div class="chat-window" [style.top]="topVal" [style.height]="heightVal">
+	<div class="chat-head">
+		<h4>{{name}}</h4>
+		<div>
+		<a (click)="minimizewindow()">_</a>
+		<a (click)="killwindow()">X</a>
+		</div>
+	</div>
+	<div class="messagebox" [innerHTML]="messages">
+	
+	</div>
+	<div class="dialogbox">
+		<input type="text" name="messagesend" autocomplete="off" id="mshh" [(ngModel)]="chatValue">
+		<button (click)="messagesend()">Send</button>
+	</div>
+</div>

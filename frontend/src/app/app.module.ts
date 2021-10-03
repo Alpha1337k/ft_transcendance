@@ -15,6 +15,7 @@ import { PongComponent } from './pong/pong.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChessComponent } from './chess/chess.component';
 import { ChesspieceComponent } from './chesspiece/chesspiece.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
@@ -38,7 +39,8 @@ const routes: Routes = [
     QueuescreenComponent,
     PongComponent,
     ChessComponent,
-    ChesspieceComponent
+    ChesspieceComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

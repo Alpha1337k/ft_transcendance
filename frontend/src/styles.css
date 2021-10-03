@@ -348,6 +348,7 @@ body {
 	margin-right: 1vh;
 	background-color: #1f1f1f;
 	overflow: hidden;
+	position: relative;
 }
 
 .chat-head {

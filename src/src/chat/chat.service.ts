@@ -56,6 +56,25 @@ export class ChatService {
 				`;
 	}
 
+	async getChatMessages(id:string): Promise<string> {
+		let chat: ChatEntity = await this.ChatRepository.findOne({ chatid: id });
+		let messages: string = '';
+		if (chat === null || chat === undefined)
+		{
+			let newchat = new ChatEntity();
+			newchat.chatid = id;
+			newchat.private = true;
+			newchat.usernames = ['John', 'Jeff'];
+			this.ChatRepository.save(newchat).then(() => {
+				console.log('gcm ----- saved a chat!');
+			});
+			return '';			
+		}
+		if (chat.messages === null || chat.messages === undefined)
+			return '';
+		return JSON.stringify(chat.messages);
+	}
+
 	async getAllChats() {
 		return JSON.stringify(await this.ChatRepository.find());
 	}

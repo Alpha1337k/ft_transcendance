@@ -8,6 +8,6 @@
 	</div>
 	<div class="friend-linkbox">
 		<button routerLink="/profile/{{user?.userid}}" class="smallbtn">웃</button>
-		<button routerLink="/chat/{{user?.userid}}" class="smallbtn">✉</button>
+		<button (click)="openchat()" class="smallbtn">✉</button>
 	</div>
 </div>
