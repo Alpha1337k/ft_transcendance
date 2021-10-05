@@ -9,6 +9,7 @@ import { ChatModule } from './chat/chat.module';
 import { PongModule } from './front/pong/pong.module';
 import { SettingsModule } from './front/settings/settings.module';
 import { ChessModule } from './front/chess/chess.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
 	imports: [
@@ -30,6 +31,7 @@ import { ChessModule } from './front/chess/chess.module';
 		PongModule,
 		SettingsModule,
 		ChessModule,
+		ImageModule
 	],
 	controllers: [AppController],
 	providers: [AppService],

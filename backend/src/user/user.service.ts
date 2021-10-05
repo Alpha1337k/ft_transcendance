@@ -2,12 +2,15 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { UserEntity, UserRank } from './user.entity';
 import { Match } from '../match/match.entity';
+import { ImageService } from 'src/image/image.service';
+import { generateAvatar } from 'src/modules/generateAvatar/generateAvatar';
 
 @Injectable()
 export class UserService {
 	constructor(
 		@Inject('USER_REPOSITORY')
-		private UserRepository: Repository<UserEntity>
+		private UserRepository: Repository<UserEntity>,
+		private imageService: ImageService
 	) {}
 
 	async getAllUsers(): Promise<UserEntity[]> {
@@ -22,7 +25,8 @@ export class UserService {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = 'jeff';
-		user.image = '';
+		console.log("waiting");
+		user.imageUrl = await this.imageService.addImg((await generateAvatar()).toString('base64'));
 		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		if (user.userid > 1) await this.addFriend(user.userid, 1);
@@ -33,7 +37,7 @@ export class UserService {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = name;
-		user.image = '';
+		user.imageUrl = '';
 		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		await this.UserRepository.manager.save(user);

@@ -25,7 +25,7 @@ export class UserEntity {
 	name: string;
 
 	@Column()
-	image: string;
+	imageUrl: string;
 
 	@Column({ default: 0 })
 	wins: number;

@@ -20,7 +20,6 @@ export class ProfileService {
 		user.history = history;
 		delete user.twoFactorSecret;
 		delete user.friends;
-		delete user.image;
 
 		return user;
 	}

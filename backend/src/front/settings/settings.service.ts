@@ -24,7 +24,7 @@ export class SettingsService {
 	async updatePicture(image: string) {
 		const user: UserEntity = await this.userService.getUserById(1);
 
-		user.image = image;
+		// user.image = image;
 
 		await this.userService.updateUser(user);
 	}
