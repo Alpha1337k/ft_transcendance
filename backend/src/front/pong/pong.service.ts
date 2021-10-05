@@ -113,10 +113,6 @@ class Game {
 			else if (updt.newpos.x > 85) this.p2_pos.x = 85;
 			else this.p2_pos.x = updt.newpos.x;
 		}
-		else
-		{
-			console.log("wat de kanker is dit?????");
-		}
 	}
 
 	update_game() {

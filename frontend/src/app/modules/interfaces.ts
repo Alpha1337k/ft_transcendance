@@ -23,4 +23,5 @@ export interface User {
 	history:	Match[];
 	userElo:	number;
 	UserRank:	UserRank;
+	imageUrl:	string;
 }
