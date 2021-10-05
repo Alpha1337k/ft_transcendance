@@ -1,9 +1,9 @@
 version: "3.3"
 services:
   backend:
-    build: .
+    build: backend/.
     volumes:
-      - "./src:/serv"
+      - "./backend:/serv"
     ports:
       - "5000:5000"
     depends_on:
