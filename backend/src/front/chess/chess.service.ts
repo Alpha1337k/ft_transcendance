@@ -74,56 +74,6 @@ export class ChessService {
 		const idx = this.searching_players.findIndex(x => x.id === clientid.id);
 		this.searching_players.splice(idx, 1);
 	}
-
-	getQueueScreen(): string {
-		return `<div class="box-announcement">
-					<h1>Searching</h1>
-				</div>
-				<h2 id="queingamount">There are currently 0 people looking for a chess game</h2> 
-				<br><br>
-				<button onclick="window.history.back();">Back</button>
-				<script>
-					g_socket.emit("findChessGame");
-				</script>
-				`;
-	}
-
-	getChessScreen(id: string): string {
-		const game = this.running_games[id];
-
-		return `
-			<div id="centergame" class="centergame">
-				<div class="C_playerdisplay">
-					<div class="C_playerinfo">
-						<img src='img/enemy.jpg' alt="?">
-						<div>
-							<h4 id="p2_name">Igor Dimichev</h4>
-							<p>(1500)</p>
-						</div>
-					</div>
-					<div class="C_timer">
-						<h2 id="p1_timer">05:00</h2>
-					</div>
-				</div>
-				<div id="C_board"></div>
-				<div class="C_playerdisplay">
-					<div class="C_playerinfo">
-						<img src='img/me.jpg', alt="?">
-						<div>
-							<h4 id="p1_name">Nikolai Inviniche</h4>
-							<p>(1500)</p>
-						</div>
-					</div>
-					<div class="C_timer">
-						<h2 id="p2_timer">05:00</h2>
-					</div>
-				</div>
-			</div>
-			<script>
-				g_socket.emit("requestChessGameData", '${id}');
-			</script>
-			`;
-	}
 }
 
 class ChessGame {

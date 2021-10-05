@@ -22,7 +22,7 @@ export class FriendsComponent implements OnInit {
 	}
 
 	async loadfriends() {
-		let friends: User[] = await this.http.get<User[]>(`http://localhost:5000/friends/json`).toPromise();
+		let friends: User[] = await this.http.get<User[]>(`http://localhost:5000/friends/`).toPromise();
 
 		console.log(friends);
 		this.container.clear();

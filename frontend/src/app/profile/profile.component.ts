@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
 
   async setContent(): Promise<void> {
 	  console.log('adding user or smth');
-	let usr: User = await this.http.get<User>(`http://localhost:5000/profile/get/${this.profileId}`).toPromise();
+	let usr: User = await this.http.get<User>(`http://localhost:5000/profile/${this.profileId}`).toPromise();
 	console.log(usr);
 	this.user = usr;
   }

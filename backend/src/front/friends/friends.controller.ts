@@ -6,11 +6,6 @@ export class FriendsController {
 	constructor(private readonly friendsService: FriendsService) {}
 
 	@Get()
-	async GetFriends() {
-		return await this.friendsService.createFriendsList();
-	}
-
-	@Get('json')
 	async GetFriendsJson() {
 		return await this.friendsService.getFriends(1);
 	}
