@@ -105,3 +105,6 @@ dist
 
 # Webstorm data
 .idea/
+
+# DS Store
+.DS_Store
