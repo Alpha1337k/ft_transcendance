@@ -3,10 +3,10 @@
 </div>
 <div class="gamedisplay">
 	<div class="playerdisplay playertop">
-		<div class="playerinfo" routerLink='/profile/{{p2?.userid}}'>
-			<img src="data:image/png;base64" alt="?">
+		<div class="playerinfo" routerLink='/profile/{{p1?.userid}}'>
+			<img src="http://localhost:5000{{p1?.imageUrl}}" class = "userImagePong">
 			<div>
-				<h4 id="p2_name">{{p1?.name}}</h4>
+				<h4 id="p1_name">{{p1?.name}}</h4>
 				<p>({{p1?.userElo}})</p>
 			</div>
 		</div>
@@ -18,7 +18,7 @@
 	</canvas>
 	<div class="playerdisplay playerbottom">
 		<div class="playerinfo" routerLink='/profile/{{p2?.userid}}'>
-			<img src="data:image/png;base64" alt="?">
+			<img src="http://localhost:5000{{p2?.imageUrl}}" class = "userImagePong">
 			<div>
 				<h4 id="p2_name">{{p2?.name}}</h4>
 				<p>({{p2?.userElo}})</p>

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../modules/interfaces';
 import { SocketService } from '../socket.service';
+import { HttpClient } from '@angular/common/http';
 
 class vec_2 {
 	x : number;
@@ -73,10 +74,12 @@ export class PongComponent implements OnInit {
 
 
 
-  constructor(private ws: SocketService, private route: ActivatedRoute) { }
+  constructor(private ws: SocketService, private route: ActivatedRoute, private http: HttpClient) { }
   
-  ngOnInit(): void {
+  async ngOnInit(): Promise <void> {
 
+	this.p1 = await this.fetchUserProfile(1);
+	this.p2 = await this.fetchUserProfile(1);
 	this.connections.push(this.route.params.subscribe(params => {
 		this.gameId = params['id'];
 		this.userId = parseInt(params['usr']);
@@ -229,6 +232,9 @@ export class PongComponent implements OnInit {
 	this.ws.sendMessage("sendClientUpdate", {id: this.gameId, updt: new positionUpdate(this.userId, player)});
   }
 
-  
+  async fetchUserProfile(id: number) {
+		let userProfile: User = await this.http.get<User>(`http://localhost:5000/users/${id}`).toPromise();
+		return userProfile;
+  }
 }
  

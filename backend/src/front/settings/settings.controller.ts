@@ -32,7 +32,7 @@ export class SettingsController {
 		console.log(form, file !== null);
 
 		await this.settingsService.updateName(form.name);
-		if (file !== null)
+		if (file !== null && file.buffer !== undefined)
 			await this.settingsService.updatePicture(file.buffer.toString('base64'));
 		return 'OK';
 	}

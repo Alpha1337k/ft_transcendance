@@ -2,10 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { UserEntity } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
 import * as twofa from 'src/modules/2fa/2fa';
+import { ImageService } from 'src/image/image.service';
 
 @Injectable()
 export class SettingsService {
-	constructor(private readonly userService: UserService) {}
+	constructor(private readonly userService: UserService, private imageService: ImageService) {}
 
 	async create2fadiv() {
 		const user: UserEntity = await this.userService.getUserById(1);
@@ -23,9 +24,7 @@ export class SettingsService {
 
 	async updatePicture(image: string) {
 		const user: UserEntity = await this.userService.getUserById(1);
-
-		// user.image = image;
-
+		user.imageUrl = await this.imageService.addImg(image);
 		await this.userService.updateUser(user);
 	}
 
