@@ -16,12 +16,12 @@
             </div>
         </div>
         <h6>Username</h6>
-        <input type="text" id="username" value="{{nameValue}}" class="friends-searchbar" [(ngModel)]="nameValue">
+        <input type="text" id="username" value="{{nameValue}}" class="friends-searchbar" [(ngModel)]="nameValue" style="border-width: 0.1vh;">
     </div>
     <div>
         <h5>2fa</h5>
-        <input type="checkbox" id="cb2fa" [(ngModel)]="is2faChecked">
-        <label for="cb2fa">Enabled</label>
+        <input type="checkbox" id="cb2fa" class="radioset" [(ngModel)]="is2faChecked">
+        <label for="cb2fa"> Enabled</label>
         <div id="2fadiv"></div>
     </div>
     <div>
@@ -42,7 +42,7 @@
         <input type="radio" id="pr3" class="radioset" name="chatRadio" [value]="2" [checked]="chat_level === 2 ? true : false" [(ngModel)]="chat_level">
         <label for="pr3"> nobody</label><br><br>
 
-        <input type="checkbox" id="bancheck" [(ngModel)]="blockDelete">
+        <input type="checkbox" id="bancheck" class="radioset" [(ngModel)]="blockDelete">
         <label for="bancheck"> Clear blocklist</label>
     </div>
 </div>

@@ -11,7 +11,7 @@
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
 /*   *.   styles.css               | Created: 2021-10-26 22:33:59    ._    */
-/*  -     Edited on 2021-10-27 22:08:46 by alpha                      .-   */
+/*  -     Edited on 2021-10-27 22:18:45 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 * {
 	font-family: 'Poppins', sans-serif;
@@ -762,6 +762,8 @@ body {
 
 .radioset {
 	margin-left: 1vh;
+	width: 1vh;
+	height: 1vh;
 }
 
 .settings-picture {
