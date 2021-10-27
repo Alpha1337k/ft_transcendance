@@ -14,7 +14,7 @@
 /*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from './user/user.entity';
+import { UserEntity } from './user/entities/user.entity';
 import { UserService } from './user/user.service';
 
 @Injectable()

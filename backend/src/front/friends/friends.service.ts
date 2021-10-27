@@ -14,7 +14,7 @@
 /*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from 'src/user/user.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import * as lastSeen from 'src/modules/lastseen';
 import { Like } from 'typeorm';

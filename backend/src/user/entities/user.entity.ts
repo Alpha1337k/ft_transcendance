@@ -20,7 +20,8 @@ import {
 	ManyToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Match } from '../match/match.entity';
+import { Match } from '../../match/match.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 export enum UserRank {
 	SPLUS = 'S+',
@@ -36,9 +37,11 @@ export class UserEntity {
 	@PrimaryGeneratedColumn('increment')
 	userid: number;
 
+	@ApiProperty()
 	@Column()
 	name: string;
 
+	@ApiProperty()
 	@Column()
 	imageUrl: string;
 

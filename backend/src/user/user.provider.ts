@@ -14,7 +14,7 @@
 /*  -     Edited on 2021-10-26 22:33:59 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Connection } from 'typeorm';
-import { UserEntity } from './user.entity';
+import { UserEntity } from './entities/user.entity';
 
 export const UserProvider = [
 	{

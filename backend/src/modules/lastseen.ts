@@ -13,7 +13,7 @@
 /*   *.   lastseen.ts              | Created: 2021-10-06 17:48:04    ._    */
 /*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
-import { UserEntity } from "src/user/user.entity";
+import { UserEntity } from "src/user/entities/user.entity";
 
 // create an last seen display of layout 'number scale ago' OR online
 export function createLastSeen(user : UserEntity): string {

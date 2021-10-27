@@ -14,7 +14,7 @@
 /*  -     Edited on 2021-10-20 16:26:03 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Injectable } from '@nestjs/common';
-import { UserEntity } from 'src/user/user.entity';
+import { UserEntity } from 'src/user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
 import * as twofa from 'src/modules/2fa/2fa';
 import { ImageService } from 'src/image/image.service';

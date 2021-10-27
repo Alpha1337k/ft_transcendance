@@ -15,7 +15,7 @@
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { UserEntity, UserRank } from './user.entity';
+import { UserEntity, UserRank } from './entities/user.entity';
 import { Match } from '../match/match.entity';
 import { ImageService } from 'src/image/image.service';
 import { generateAvatar } from 'src/modules/generateAvatar/generateAvatar';
@@ -51,7 +51,7 @@ export class UserService {
 		return this.UserRepository.manager.save(user);
 	}
 
-	async addUser(name: string): Promise<void> {
+	async addUser(name: string): Promise<UserEntity> {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
 		user.name = name;
@@ -59,6 +59,7 @@ export class UserService {
 		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		await this.UserRepository.manager.save(user);
+		return user;
 	}
 
 	async getUserById(id: number): Promise<UserEntity> {
@@ -81,7 +82,7 @@ export class UserService {
 		return user.history;
 	}
 
-	async updateElo(id: number, won: boolean, opponentElo: number) {
+	async updateElo(id: number, won: boolean, opponentElo: number): Promise<UserEntity> {
 		// make thes available somewhere else
 		const multi = 400;
 		const kFactor = 32;
@@ -108,7 +109,7 @@ export class UserService {
 		return this.UserRepository.save(user);
 	}
 
-	// friend functions
+
 	async getUserWithFriends(id: number): Promise<UserEntity> {
 		return this.UserRepository.findOne(id, {
 			relations: ['friends'],
@@ -120,7 +121,7 @@ export class UserService {
 		return user.friends;
 	}
 
-	async addFriend(userId: number, friendId: number) {
+	async addFriend(userId: number, friendId: number): Promise<UserEntity> {
 		if (userId == friendId) throw "can't add yourself";
 		const user = await this.getUserWithFriends(userId);
 		if (user.friends.find((x) => x.userid == friendId)) {
@@ -131,15 +132,15 @@ export class UserService {
 		return this.UserRepository.save(user);
 	}
 
-	async deleteFriend(userId: number, friendId: number) {
+	async deleteFriend(userId: number, friendId: number): Promise<UserEntity> {
 		const user = await this.getUserWithFriends(userId);
 		user.friends = user.friends.filter((user) => {
 			user.userid !== friendId;
 		});
-		await this.UserRepository.save(user);
+		return this.UserRepository.save(user);
 	}
 
-	async updateUser(user: UserEntity) {
-		await this.UserRepository.manager.save(user);
+	async updateUser(user: UserEntity): Promise<UserEntity> {
+		return this.UserRepository.manager.save(user);
 	}
 }

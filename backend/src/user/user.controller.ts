@@ -13,25 +13,35 @@
 /*   *.   user.controller.ts       | Created: 2021-10-20 16:26:03    ._    */
 /*  -     Edited on 2021-10-20 16:26:03 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UserService } from './user.service';
+import { ApiTags } from '@nestjs/swagger';
+import { UserEntity } from './entities/user.entity';
 
+@ApiTags('Users')
 @Controller('users')
 export class UserController {
 	constructor(private readonly userService: UserService) {}
 
 	@Get()
-	async all() {
+	async all(): Promise<UserEntity[]> {
 		return this.userService.getAllUsers();
 	}
 
+	
 	@Get('rand')
-	async addRandom() {
+	async addRandom(): Promise<UserEntity> {
 		return this.userService.addUserRandom();
 	}
-
+	
 	@Get(':id')
-	async id(@Param() user) {
+	async id(@Param() user): Promise<UserEntity> { //TODO: auto parse ID
 		return this.userService.getUserById(user.id);
 	}
+	
+	@Post()
+	createUser(@Body() body: UserEntity): Promise<UserEntity> {
+		return this.userService.addUser(UserEntity.name);
+	}
+
 }

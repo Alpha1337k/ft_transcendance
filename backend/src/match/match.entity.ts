@@ -14,7 +14,7 @@
 /*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { UserEntity } from '../user/user.entity';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Entity()
 export class Match {
