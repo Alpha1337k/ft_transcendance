@@ -22,14 +22,16 @@ export class UserController {
 
 	@Get()
 	async all() {
-		await this.userService.addUserRandom();
-		return (
-			'this is it::' + JSON.stringify(await this.userService.getAllUsers())
-		);
+		return this.userService.getAllUsers();
+	}
+
+	@Get('rand')
+	async addRandom() {
+		return this.userService.addUserRandom();
 	}
 
 	@Get(':id')
-	async id(@Param() user ) {
-		return await this.userService.getUserById(user.id);
+	async id(@Param() user) {
+		return this.userService.getUserById(user.id);
 	}
 }
