@@ -15,19 +15,34 @@
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Controller, Get, Param } from '@nestjs/common';
 import { FriendsService } from './friends.service';
+import { UserService } from '../user/user.service';
 
 @Controller('friends')
 export class FriendsController {
-	constructor(private readonly friendsService: FriendsService) {}
+	constructor(
+		private readonly friendsService: FriendsService,
+		private userService: UserService
+	) {}
 
 	@Get()
 	async GetFriendsJson() {
 		return await this.friendsService.getFriends(1);
 	}
 
+	@Get('rand')
+	async Randfriends() {
+		const allusers = await this.userService.getAllUsers();
+		if (allusers.length < 2) return;
+		const user1 = allusers[Math.floor(Math.random() * allusers.length)];
+		let user2 = user1;
+		while (user2 === user1)
+			user2 = allusers[Math.floor(Math.random() * allusers.length)];
+		return this.friendsService.addFriend(user1.userid, user2.userid);
+	}
+
 	@Get('add/:id')
 	async AddFriend(@Param() params) {
-		return await this.friendsService.addFriend(params.id as number);
+		return await this.friendsService.addFriend(1, params.id as number);
 	}
 
 	@Get('find/:id')

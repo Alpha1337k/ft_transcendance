@@ -13,12 +13,10 @@
 /*   *.   app.controller.ts        | Created: 2021-10-06 17:48:04    ._    */
 /*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
 	constructor(private readonly appService: AppService) {}
-
-
 }
