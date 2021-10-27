@@ -24,9 +24,12 @@ export class UserService {
 	async addUserRandom(): Promise<UserEntity> {
 		const user = new UserEntity();
 		user.lastSeen = new Date();
-		user.name = 'jeff';
-		console.log("waiting");
-		user.imageUrl = await this.imageService.addImg((await generateAvatar()).toString('base64'));
+		const names = ['Jonas', 'Oscar', 'Rene', 'Robijn', 'Tim'];
+		user.name = names[Math.floor(Math.random() * 5)];
+		console.log('waiting');
+		user.imageUrl = await this.imageService.addImg(
+			(await generateAvatar()).toString('base64')
+		);
 		user.friends = [];
 		// user.image = (await generateAvatar()).toString('base64');
 		if (user.userid > 1) await this.addFriend(user.userid, 1);
