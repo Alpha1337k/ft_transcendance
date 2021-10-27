@@ -25,20 +25,11 @@ import { PongModule } from './front/pong/pong.module';
 import { SettingsModule } from './front/settings/settings.module';
 import { ChessModule } from './front/chess/chess.module';
 import { ImageModule } from './image/image.module';
+import config from '../orm-config'
 
 @Module({
 	imports: [
-		TypeOrmModule.forRoot({
-			type: 'postgres',
-			host: 'postgres',
-			port: 5432,
-			username: 'postgres',
-			password: 'codam',
-			database: 'test',
-			entities: [],
-			autoLoadEntities: true,
-			synchronize: true,
-		}),
+		TypeOrmModule.forRoot(config),
 		UserModule,
 		FriendsModule,
 		ProfileModule,
