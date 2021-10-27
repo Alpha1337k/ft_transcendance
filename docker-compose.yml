@@ -16,7 +16,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: codam
-      POSTGRES_DB: test
+      POSTGRES_DB: pongping
 
   front:
     build: frontend/.
