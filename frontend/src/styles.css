@@ -11,7 +11,7 @@
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
 /*   *.   styles.css               | Created: 2021-10-26 22:33:59    ._    */
-/*  -     Edited on 2021-10-26 22:33:59 by alpha                      .-   */
+/*  -     Edited on 2021-10-27 22:08:46 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 * {
 	font-family: 'Poppins', sans-serif;
@@ -198,11 +198,27 @@ body {
 	overflow-y: scroll;
 }
 
+.friends-searchbox {
+	display: flex;
+}
+
 .friends-searchbar {
-	border-radius: 1vh;
+	border-radius: 1vh 0 0 1vh;
+	border-width: 0.1vh 0 0.1vh 0.1vh;
     padding: 0.1vh;
     padding-left: 1vh;
     width: 20vh;
+	height: 3vh;
+}
+
+.friends-searchbtn {
+	border-radius: 0 1vh 1vh 0;
+	border-width: 0.1vh 0.1vh 0.1vh 0;
+}
+
+.friends-searchbtn:hover {
+	background-color: #eaeaea;
+	transition: 0.5s ease;
 }
 
 .friendbox {

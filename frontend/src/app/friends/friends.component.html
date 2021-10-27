@@ -3,9 +3,10 @@
 		<h3>Friends</h3>
 	</div>
 	<br>
-	<input type="text" placeholder="search" class="friends-searchbar" #searchtext>
-	<button #searchbtn (click)="runsearch(searchtext.value)">search</button>
-
+	<div class="friends-searchbox">
+	<input type="text" placeholder="search" class="friends-searchbar" #searchtext (keydown.enter)="runsearch(searchtext.value)">
+	<button #searchbtn (click)="runsearch(searchtext.value)" class="friends-searchbtn">search</button>
+	</div>
 	<div id="friends-list">
 		<ng-container #container></ng-container> 
 	</div>
