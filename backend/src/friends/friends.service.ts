@@ -10,14 +10,11 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   friends.service.ts       | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   friends.service.ts       | Created: 2021-10-27 21:48:57    ._    */
+/*  -     Edited on 2021-10-27 21:48:57 by alpha                      .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Injectable } from '@nestjs/common';
-<<<<<<< HEAD:backend/src/front/friends/friends.service.ts
 import { UserEntity } from 'src/user/entities/user.entity';
-=======
->>>>>>> 8ada5f7b0445b02f8c4e61d984a7ce1243480cee:backend/src/friends/friends.service.ts
 import { UserService } from 'src/user/user.service';
 import { Like } from 'typeorm';
 

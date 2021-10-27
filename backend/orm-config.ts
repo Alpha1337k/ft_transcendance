@@ -7,7 +7,7 @@ const config: PostgresConnectionOptions = {
 			username: 'postgres',
 			password: 'codam',
 			database: 'pongping',
-			entities: ['dist/src/**/*.entity.js'],
+			entities: [],
 			// autoLoadEntities: true,
 			synchronize: true
 }
