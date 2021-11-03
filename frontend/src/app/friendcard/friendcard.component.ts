@@ -10,8 +10,8 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   friendcard.component.ts  | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   friendcard.component.ts  | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../chat.service';
@@ -35,7 +35,8 @@ export class FriendcardComponent implements OnInit {
 	}
 
 	openchat() {
-		this.cs.emitChange(this.user?.userid);
+		if (this.user)
+			this.cs.emitChange(this.user);
 	}
 
 }

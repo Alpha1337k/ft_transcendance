@@ -10,13 +10,14 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   app.component.ts         | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   app.component.ts         | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewContainerRef, ComponentFactoryResolver, ViewChild} from '@angular/core';
 import { ChatService } from './chat.service';
 import { ChatComponent } from './chat/chat.component';
+import { User } from './modules/interfaces';
 import { QueueService } from './queue.service';
 import { QueuescreenComponent } from './queuescreen/queuescreen.component';
 import { SocketService } from './socket.service';
@@ -54,12 +55,12 @@ export class AppComponent {
 	this.ws.connect()
 
 	}
-	openChat(chatid: number) {
-		console.log("wow a chat", chatid);
+	openChat(chatUser: User) {
+		console.log("wow a chat", chatUser.userid);
 		const factory = this.cfr.resolveComponentFactory(ChatComponent);
 		const ret = this.chatcontainer.createComponent(factory);
 		this.cs.openChats.push(ret);
-		ret.instance.init(chatid, 1);
+		ret.instance.init(chatUser);
 		
 	}
 

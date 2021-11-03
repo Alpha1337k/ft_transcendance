@@ -16,6 +16,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
+import { User } from '../modules/interfaces';
 import { SocketService } from '../socket.service';
 
 interface IncomingChatMessage {
@@ -60,7 +61,6 @@ export class ChatComponent implements OnInit {
 	  this.ws.create_obs("msgToClients").subscribe(msg => {
 		this.addMessages(msg);
 	  })
-	  this.name = 'Jeff';
 	  const msg = await this.http.get<IncomingChatMessage[]>(`http://localhost:5000/chat/messages/${this.chatid}`).toPromise();
 	  for (let i = 0; i < msg.length; i++) {
 		this.addMessages(msg);
@@ -71,9 +71,10 @@ export class ChatComponent implements OnInit {
 	  this.moveDown();
   }
 
-  init(chatid: number, userid: number) {
-	this.chatid = chatid;
-	this.userid = userid;
+  init(usr: User) {
+	this.chatid = parseInt(usr.userid);
+	this.userid = 1;
+	this.name = usr.name;
   }
   minimizewindow() {
 		if (this.heightVal === '30vh')
