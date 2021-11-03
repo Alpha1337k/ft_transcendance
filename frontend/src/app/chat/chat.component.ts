@@ -45,19 +45,25 @@ export class ChatComponent implements OnInit {
   constructor(private cs: ChatService, private ws: SocketService,
 				private http: HttpClient) { }
 
+	async addMessages(msg: IncomingChatMessage[])
+	{
+		for (let i = 0; i < msg.length; i++) {
+			const e = msg[i];
+			this.messages += `<div class="chatmessagebox">
+								<h5>${e.sender}</h5>
+								<p>${e.message}</p>
+							</div>`;		
+		}
+	}
+
   async ngOnInit(): Promise<void> {
 	  this.ws.create_obs("msgToClients").subscribe(msg => {
-		  this.messages += msg;
+		this.addMessages(msg);
 	  })
 	  this.name = 'Jeff';
 	  const msg = await this.http.get<IncomingChatMessage[]>(`http://localhost:5000/chat/messages/${this.chatid}`).toPromise();
 	  for (let i = 0; i < msg.length; i++) {
-		  const e = msg[i];
-		  this.messages += `<div class="chatmessagebox">
-		  					<h5>${e.sender}</h5>
-							  <p>${e.message}</p>
-							</div>
-							`
+		this.addMessages(msg);
 	  }
   }
 

@@ -10,8 +10,8 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   chat.module.ts           | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   chat.module.ts           | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from 'src/database/database.module';

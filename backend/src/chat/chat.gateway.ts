@@ -10,8 +10,8 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   chat.gateway.ts          | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   chat.gateway.ts          | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import {
 	SubscribeMessage,
@@ -49,14 +49,10 @@ export class ChatGateway
 
 	@SubscribeMessage('sendChatMessage')
 	async recieveChatMessage(client: Socket, payload: IncomingChatMessage) {
-		console.log('message recieved!!!');
 		let msg: ChatMessage = await this.chatService.addMessage(payload);
 		this.server.emit(
 			'msgToClients',
-			`<div class="chatmessagebox">
-												<h5>${msg.sender}</h5>
-												<p>${msg.message}</p>
-											</div>`
+			[{sender: msg.sender, message: msg.message}]
 		);
 	}
 }
