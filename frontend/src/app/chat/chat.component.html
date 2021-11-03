@@ -6,11 +6,11 @@
 		<a (click)="killwindow()">X</a>
 		</div>
 	</div>
-	<div class="messagebox" [innerHTML]="messages">
+	<div class="messagebox" [innerHTML]="messages" #messageBox>
 	
 	</div>
 	<div class="dialogbox">
-		<input type="text" name="messagesend" autocomplete="off" id="mshh" [(ngModel)]="chatValue">
+		<input type="text" name="messagesend" autocomplete="off" id="mshh" [(ngModel)]="chatValue" (keydown.enter)="messagesend()">
 		<button (click)="messagesend()">Send</button>
 	</div>
 </div>

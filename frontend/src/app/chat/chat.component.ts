@@ -10,11 +10,11 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   chat.component.ts        | Created: 2021-10-06 17:48:04    ._    */
-/*  -     Edited on 2021-10-06 17:48:04 by alpha                      .-   */
+/*   *.   chat.component.ts        | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../chat.service';
 import { SocketService } from '../socket.service';
 
@@ -39,7 +39,8 @@ export class ChatComponent implements OnInit {
 	topVal:string		= '0';
 	chatValue: string = '';
 	messages: string = '';
-
+	@ViewChild('messageBox')
+	messagewindow!: ElementRef;
 
   constructor(private cs: ChatService, private ws: SocketService,
 				private http: HttpClient) { }
@@ -58,6 +59,10 @@ export class ChatComponent implements OnInit {
 							</div>
 							`
 	  }
+  }
+
+  ngAfterViewChecked() {
+	  this.moveDown();
   }
 
   init(chatid: number, userid: number) {
@@ -79,6 +84,13 @@ export class ChatComponent implements OnInit {
 
 	messagesend() {
 		this.ws.sendMessage("sendChatMessage", {userid: this.userid, chatid: this.chatid, message: this.chatValue});
+		this.chatValue = '';
+	}
+
+	moveDown() {
+		if (this.messagewindow === null)
+			return;
+		this.messagewindow.nativeElement.scrollTop = this.messagewindow.nativeElement.scrollHeight;
 	}
 
   killwindow() {

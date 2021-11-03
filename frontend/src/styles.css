@@ -10,8 +10,8 @@
 /*  /       Tim van Citters  |   tvan-cit    |   Tjobo-Hero           *    */
 /*   +      Rene Braaksma    |   rbraaksm    |   rbraaksm              -   */
 /*    *.                                                              ._   */
-/*   *.   styles.css               | Created: 2021-10-26 22:33:59    ._    */
-/*  -     Edited on 2021-10-27 22:18:45 by alpha                      .-   */
+/*   *.   styles.css               | Created:     ._    */
+/*  -     Edited on  by alpha_1337                 .-   */
 /*  -* *- *- * -* -* -* ** - *-* -* * /  -* -*- * /- - -* --*-*++ * -* *   */
 * {
 	font-family: 'Poppins', sans-serif;
@@ -397,12 +397,14 @@ body {
 
 .messagebox {
 	height: 22vh;
+	overflow-y: scroll;
 }
 
 .dialogbox {
 	background-color: white;
 	display: flex;
     justify-content: space-evenly;
+	height: 4vh;
 }
 
 .dialogbox input {
